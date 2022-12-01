@@ -1,24 +1,49 @@
 import logo from './logo.svg';
 import './App.css';
+import Recs from './recs/index'
+import SongsSearch from './songs/songs-search';
+import Users from './users';
+import Profile from './users/profile';
+import PublicProfile from './users/public-profile';
+import Register from './users/register';
+import Login from './users/login';
+import Details from './songs/songs-details';
+import Navigation from './navigation';
+
+const store = configureStore({
+  reducer: {
+  }
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="container mt-4 mb-4">
+          <Provider store={store}>
+              <BrowserRouter>
+                  <CurrentUser>
+                      <Navigation/>
+                      <Routes>
+                          <Route index element={<Recs/>}/>
+                          <Route path="/search" element={<SongsSearch/>}/>
+                          <Route path="/users" element={
+                              <ProtectedRoute>
+                                  <Users/>
+                              </ProtectedRoute>
+                          }/>
+                          <Route path="/login" element={<Login/>}/>
+                          <Route path="/register" element={<Register/>}/>
+                          <Route path="/profile" element={
+                              <ProtectedRoute>
+                                  <Profile/>
+                              </ProtectedRoute>
+                          }/>
+                          <Route path="/details/:songID" element={<Details/>}/>
+                          <Route path="/profile/:uid" element={<PublicProfile/>}/>
+                      </Routes>
+                  </CurrentUser>
+              </BrowserRouter>
+          </Provider>
+      </div>
   );
 }
 
