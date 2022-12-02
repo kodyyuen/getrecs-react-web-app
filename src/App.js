@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Recs from './recs/index'
 import SongsSearch from './songs/songs-search';
@@ -9,9 +8,11 @@ import Register from './users/register';
 import Login from './users/login';
 import Details from './songs/songs-details';
 import Navigation from './navigation';
+import usersReducer from './users/users-reducer';
 
 const store = configureStore({
   reducer: {
+    users: usersReducer,
   }
 })
 
