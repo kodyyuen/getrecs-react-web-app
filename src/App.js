@@ -9,6 +9,7 @@ import Login from './users/login';
 import Details from './songs/songs-details';
 import Navigation from './navigation';
 import usersReducer from './users/users-reducer';
+import { configureStore } from '@reduxjs/toolkit';
 
 const store = configureStore({
   reducer: {
