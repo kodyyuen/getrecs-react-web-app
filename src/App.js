@@ -1,13 +1,18 @@
 import './App.css';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import {Routes, Route} from "react-router";
+import {BrowserRouter} from "react-router-dom";
 import Recs from './recs/index'
 import SongsSearch from './songs/songs-search';
-import Users from './users';
 import Profile from './users/profile';
 import PublicProfile from './users/public-profile';
 import Register from './users/register';
 import Login from './users/login';
 import Details from './songs/songs-details';
 import Navigation from './navigation';
+import CurrentUser from './users/current-user';
+import ProtectedRoute from './users/protected-route';
 import usersReducer from './users/users-reducer';
 import { configureStore } from '@reduxjs/toolkit';
 
@@ -27,11 +32,6 @@ function App() {
                       <Routes>
                           <Route index element={<Recs/>}/>
                           <Route path="/search" element={<SongsSearch/>}/>
-                          <Route path="/users" element={
-                              <ProtectedRoute>
-                                  <Users/>
-                              </ProtectedRoute>
-                          }/>
                           <Route path="/login" element={<Login/>}/>
                           <Route path="/register" element={<Register/>}/>
                           <Route path="/profile" element={
