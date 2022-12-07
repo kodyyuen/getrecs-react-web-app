@@ -11,7 +11,6 @@ const usersReducer = createSlice({
   name: 'users',
   initialState: {
     users: [],
-    loading: false,
     currentUser: null,
     publicProfile: null
   },

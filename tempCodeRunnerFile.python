@@ -1,0 +1,4 @@
+nums = list(range(352, 999999999999, 352))
+for num in nums:
+    if num % 352 == 1:
+        print(num)
