@@ -20,6 +20,7 @@ import { getTokenFromUrl } from './spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
 import findSongBySearchTerm from './songs/songs-service';
 import songsReducer from './songs/songs-reducer';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore({
     reducer: {
@@ -49,7 +50,8 @@ function App() {
     //         console.log('Search result: ', data)
     //     }
     // })
-    findSongBySearchTerm()
+
+    //findSongBySearchTerm()
     return (
         <div className="container mt-4 mb-4">
             <Provider store={store}>

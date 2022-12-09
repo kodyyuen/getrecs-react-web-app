@@ -1,8 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { findSongBySearchTermThunk } from "./songs-thunks";
+import { findSongBySearchTermThunk, findSongBySongIDThunk } from "./songs-thunks";
 
 const initialState = {
     songs: [],
+    details: null
 }
 
 const songsReducer = createSlice({
@@ -10,7 +11,10 @@ const songsReducer = createSlice({
     initialState,
     extraReducers: {
         [findSongBySearchTermThunk.fulfilled]: (state, action) => {
-            state.songs = action.payload
+            state.songs = action.payload;
+        },
+        [findSongBySongIDThunk.fulfilled]: (state, action) => {
+            state.details = action.payload;
         }
     }
 })

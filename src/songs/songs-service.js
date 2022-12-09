@@ -16,7 +16,7 @@ import axios from 'axios'
 import { Buffer } from 'buffer';
 import SpotifyWebApi from 'spotify-web-api-js';
 
-const SEARCH_URL = "https://api.spotify.com/v1/search?q=wish&type=track"
+//const SEARCH_URL = "https://api.spotify.com/v1/search?q=wish&type=track"
 let API_TOKEN = null
 
 // const apiCall = async () => {
@@ -31,6 +31,8 @@ let API_TOKEN = null
 const client_id = '9534d135519d4b049b481e8bc6862e40'; // Your client id
 const client_secret = '958d137cb4e44d4b9eca6ad5333bf62e'; // Your secret
 const auth_token = Buffer.from(`${client_id}:${client_secret}`, 'utf-8').toString('base64');
+
+const SEARCH_TRACK_URL = "https://api.spotify.com/v1/tracks/"
 
 const getToken = async () => {
   try{
@@ -61,13 +63,23 @@ const getSpotify = () => {
     return s
 }
 
-const findSongBySearchTerm = async (term) => {
+const createSearchURL = (term) => {
+    return `https://api.spotify.com/v1/search?q=${term}&type=track`
+}
+
+export const findSongBySearchTerm = async (term) => {
     if (!API_TOKEN) {
         getToken()
     }
-    const response = await axios.get(SEARCH_URL, {headers: {"Authorization": `Bearer ${API_TOKEN}`}})
+    const response = await axios.get(createSearchURL(term), {headers: {"Authorization": `Bearer ${API_TOKEN}`}})
     console.log(response.data)
     return response.data.tracks.items
 }
 
-export default findSongBySearchTerm;
+export const findSongBySongID = async (songID) => {
+    if (!API_TOKEN) {
+        getToken();
+    }
+    const response = await axios.get(`${SEARCH_TRACK_URL}${songID}`, {headers: {"Authorization": `Bearer ${API_TOKEN}`}})
+    return response.data
+}

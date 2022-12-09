@@ -1,12 +1,11 @@
-import {Link} from "react-router-dom";
-import {useLocation} from "react-router";
-import {useSelector} from "react-redux";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router";
+import { useSelector } from "react-redux";
 
 const Navigation = () => {
-  const { currentUser } = useSelector((state) => state.users)
+	const { currentUser } = useSelector((state) => state.users)
 	const { pathname } = useLocation()
 	const parts = pathname.split('/')
-	console.log(parts)
 	return (
 		<ul className="nav nav-pills">
 			<li className="nav-item">
