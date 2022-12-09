@@ -58,7 +58,7 @@ const SongsSearch = () => {
                                 <div className="row">
                                     <span className="col-1 my-auto">{idx + 1}</span>
                                     <span className="col-7 my-auto">
-                                        <a className="me-3" href={getSongLink(song)} target="_blank" rel="noreferrer"><img src={getImage(song)} height={100} /></a>
+                                        <a className="me-3" href={getSongLink(song)} target="_blank" rel="noreferrer"><img src={getImage(song)} height={100} alt="song art" /></a>
                                         <Link to={`/details/${getSongID(song)}`}>
                                             {getSongName(song)} - {getArtistName(song)}
                                         </Link>

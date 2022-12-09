@@ -6,35 +6,64 @@ import { getAlbumName, getArtistName, getDuration, getImage, getSongID, getSongL
 
 const Details = () => {
     const { songID } = useParams();
-    const { details } = useSelector((state) => state.songs)
+    const { details } = useSelector((state) => state.songs);
+    const [like, setLike] = useState(false);
+    //const {likes} = useSelector((state) => state.likes);
+    const {currentUser} = useSelector((state) => state.users);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(findSongBySongIDThunk(songID))
     }, [])
+    const handleLikeButton = () => {
+
+    }
     return (
         <>
             <h1>Details</h1>
-            <div className="row">
-                <div className="col">
-                    {
-                        details &&
-                        <ul className="list-group">
-                            <li className="list-group-item">
-                                <a href={getSongLink(details)}>Song: {getSongName(details)}</a>
-                            </li>
-                            <li className="list-group-item">
-                                <a href={getArtistLink(details)}>Artist: {getArtistName(details)}</a>
-                            </li>
-                            <li className="list-group-item">
-                                <img src={getImage(details)} />
-                            </li>
-                        </ul>
-                    }
+            {
+                details &&
+                <>
+                    <div className="row">
+                        <div className="col-5">
+                            <img src={getImage(details)} className="img-fluid" alt="song art" />
+                        </div>
+                        <div className="col-7 text-dark">
+                            <h1>
+                                <a href={getSongLink(details)} target="_blank" rel="noreferrer">{getSongName(details)}</a>
+                            </h1>
+                            <h3>
+                                <a href={getArtistLink(details)} target="_blank" rel="noreferrer">{getArtistName(details)}</a>
+                            </h3>
+                            <h4>
+                                {getDuration(details)}
+                            </h4>
+                            <i className={`fa-3x fa-heart me-2 ${like ? "fa text-success" : "fa-regular text-muted"}`}
+                                onClick={() => setLike(!like)
+                                }></i>
+                        </div>
+                    </div>
 
-                </div>
+                    <div className="row mt-5">
+                        <h1>Likes</h1>
+                        <div className="col">
+                            <ul className="list-group">
+                                <li className="list-group-item">
 
-            </div>
+                                </li>
+                                <li className="list-group-item">
 
+                                </li>
+                                <li className="list-group-item">
+
+                                </li>
+                            </ul>
+
+
+                        </div>
+                    </div>
+                </>
+
+            }
         </>
     )
 }

@@ -2,6 +2,10 @@ export const getSongName = (song) => {
     return song.name;
 }
 
+export const getSongLink = (song) => {
+    return song.external_urls.spotify;
+}
+
 export const getArtistName = (song) => {
     return song.artists[0].name;
 }
@@ -10,16 +14,12 @@ export const getArtistLink = (song) => {
     return song.artists[0].href;
 }
 
-export const getImage = (song) => {
-    return song.album.images[0].url;
-}
-
-export const getSongLink = (song) => {
-    return song.external_urls.spotify;
-}
-
 export const getAlbumName = (song) => {
     return song.album.name;
+}
+
+export const getImage = (song) => {
+    return song.album.images[0].url;
 }
 
 export const getDuration = (song) => {

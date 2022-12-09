@@ -21,6 +21,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import findSongBySearchTerm from './songs/songs-service';
 import songsReducer from './songs/songs-reducer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const store = configureStore({
     reducer: {

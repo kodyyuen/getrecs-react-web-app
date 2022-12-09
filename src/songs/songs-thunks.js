@@ -4,10 +4,10 @@ import {findSongBySearchTerm, findSongBySongID} from "./songs-service";
 
 export const findSongBySearchTermThunk = createAsyncThunk(
     "findSongBySearchTerm",
-    (term) => findSongBySearchTerm(term)
+    async (term) => await findSongBySearchTerm(term)
 )
 
 export const findSongBySongIDThunk = createAsyncThunk(
     "findSongBySongID",
-    (songID) => findSongBySongID(songID)
+    async (songID) => await findSongBySongID(songID)
 )
