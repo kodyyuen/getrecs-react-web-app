@@ -5,7 +5,8 @@ import {
   logout, 
   profile, 
   register,
-  toggleSongLike
+  toggleSongLike,
+  findWhoRecentlyLiked,
 } from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
@@ -36,4 +37,9 @@ export const registerThunk = createAsyncThunk(
 export const toggleSongLikeThunk = createAsyncThunk(
   'likeSong',
   async ({uid, songIds}) => await toggleSongLike(uid, songIds)
+)
+
+export const findWhoRecentlyLikedThunk = createAsyncThunk(
+  "findRecentlyLikedBy",
+  async (songID) => await findWhoRecentlyLiked(songID)
 )

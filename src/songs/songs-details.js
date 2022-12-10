@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { findSongBySongIDThunk } from "./songs-thunks";
-import { toggleSongLikeThunk } from "../users/users-thunk";
+import { toggleSongLikeThunk, findWhoRecentlyLikedThunk } from "../users/users-thunk";
 import { getAlbumName, getArtistName, getDuration, getImage, getSongID, getSongLink, getSongName, getArtistLink } from "./songs-helpers"
 
 const Details = () => {
   const { songID } = useParams();
-  const { details } = useSelector((state) => state.songs);
+  const { details, likedBy } = useSelector((state) => state.songs);
   const { currentUser } = useSelector((state) => state.users);
   const [liked, setLiked] = useState(currentUser && currentUser.likes.includes(songID));
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(findSongBySongIDThunk(songID))
+    dispatch(findWhoRecentlyLikedThunk(songID))
   }, [])
 
   useEffect(() => {
@@ -60,6 +61,7 @@ const Details = () => {
 
           <div className="row mt-5">
             <h1>Likes</h1>
+            {likedBy ? <pre>{likedBy}</pre> : 'TEST TEST'}
             <div className="col">
               <ul className="list-group">
                 <li className="list-group-item">

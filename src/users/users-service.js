@@ -38,6 +38,11 @@ export const toggleSongLike = async (uid, songIds) => {
   return response.data;
 }
 
+export const findWhoRecentlyLiked = async (songID) => {
+  const response = await api.get(`http://localhost:4000/recentlyLikedBy/${songID}`);
+  return response.data;
+}
+
 const deleteUser = async (uid) => { 
   const response = await api.delete(`${BASE_API_URL}/deleteUser/${uid}`);
   return response.data;
