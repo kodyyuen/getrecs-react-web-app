@@ -31,15 +31,13 @@ export const profile = async () => {
   return response.data;
 }
 
-// export const toggleSongLike = async (songIds) => {
-//   const response = await api.put(`${BASE_API_URL}/likeSong`, {
-//     songIds
-//   });
-//   return response.data;
-// }
-
 export const updateUser = async (updates) => {
   const response = await api.put(`${USER_API_URL}/update`, updates);
+  return response.data;
+}
+
+export const findWhoRecentlyLiked = async (songID) => {
+  const response = await api.get(`${BASE_API_URL}/recentlyLikedBy/${songID}`);
   return response.data;
 }
 

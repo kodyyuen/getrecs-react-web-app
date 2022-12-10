@@ -2,23 +2,24 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { findSongBySongIDThunk } from "./songs-thunks";
-import { toggleSongLikeThunk, updateUserThunk } from "../users/users-thunk";
+import { findWhoRecentlyLikedThunk, updateUserThunk } from "../users/users-thunk";
 import { getAlbumName, getArtistName, getDuration, getImage, getSongID, getSongLink, getSongName, getArtistLink } from "./songs-helpers"
 
 const Details = () => {
-    const { songID } = useParams();
-    const { details } = useSelector((state) => state.songs);
-    const { currentUser } = useSelector((state) => state.users);
-    const [liked, setLiked] = useState(currentUser && currentUser.likes.includes(songID));
-    const dispatch = useDispatch();
+  const { songID } = useParams();
+  const { details, likedBy } = useSelector((state) => state.songs);
+  const { currentUser } = useSelector((state) => state.users);
+  const [liked, setLiked] = useState(currentUser && currentUser.likes.includes(songID));
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(findSongBySongIDThunk(songID))
-    }, [])
+  useEffect(() => {
+    dispatch(findSongBySongIDThunk(songID))
+    dispatch(findWhoRecentlyLikedThunk(songID))
+  }, [])
 
-    useEffect(() => {
-        setLiked(currentUser && currentUser.likes.includes(songID));
-    }, [currentUser])
+  useEffect(() => {
+    setLiked(currentUser && currentUser.likes.includes(songID));
+  }, [currentUser])
 
     const handleLikeButton = () => {
         let newlikedSongs = [songID];
@@ -27,60 +28,60 @@ const Details = () => {
         } else {
             newlikedSongs = [songID, ...currentUser.likes];
         }
-        dispatch(updateUserThunk({likes: newlikedSongs}));
+
+        dispatch(updateUserThunk({ likes: newlikedSongs }));
     }
 
-    return (
+  return (
+    <>
+      <h1>Details</h1>
+      {
+        details &&
         <>
-            <h1>Details</h1>
-            {
-                details &&
-                <>
-                    <div className="row">
-                        <div className="col-5">
-                            <img src={getImage(details)} className="img-fluid" alt="song art" />
-                        </div>
-                        <div className="col-7 text-dark">
-                            <h1>
-                                <a href={getSongLink(details)} target="_blank" rel="noreferrer">{getSongName(details)}</a>
-                            </h1>
-                            <h3>
-                                <a href={getArtistLink(details)} target="_blank" rel="noreferrer">{getArtistName(details)}</a>
-                            </h3>
-                            <h4>
-                                {getDuration(details)}
-                            </h4>
-                            {
-                                currentUser &&
-                                <i className={`fa-3x fa-heart me-2 ${liked ? "fa text-success" : "fa-regular text-muted"}`}
-                                    onClick={handleLikeButton}></i>
-                            }
-                        </div>
-                    </div>
+          <div className="row">
+            <div className="col-5">
+              <img src={getImage(details)} className="img-fluid" alt="song art" />
+            </div>
+            <div className="col-7 text-dark">
+              <h1>
+                <a href={getSongLink(details)} target="_blank" rel="noreferrer">{getSongName(details)}</a>
+              </h1>
+              <h3>
+                <a href={getArtistLink(details)} target="_blank" rel="noreferrer">{getArtistName(details)}</a>
+              </h3>
+              <h4>
+                {getDuration(details)}
+              </h4>
+              {
+                currentUser &&
+                <i className={`fa-3x fa-heart me-2 ${liked ? "fa text-success" : "fa-regular text-muted"}`}
+                  onClick={handleLikeButton}></i>
+              }
+            </div>
+          </div>
 
-                    <div className="row mt-5">
-                        <h1>Likes</h1>
-                        <div className="col">
-                            <ul className="list-group">
-                                <li className="list-group-item">
-
-                                </li>
-                                <li className="list-group-item">
-
-                                </li>
-                                <li className="list-group-item">
-
-                                </li>
-                            </ul>
-
-
-                        </div>
-                    </div>
-                </>
-
-            }
+          <div className="row mt-5">
+            {likedBy && likedBy.length > 0 ? (
+              <>
+                <h1>Recently Liked By:</h1>
+                <div className="col">
+                  <ul className="list-group">
+                    {likedBy.map((user, index) => 
+                      <li className="list-group-item" key={index}>
+                        {user.username}
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <h3>Be the first to like this song!</h3>
+            )}
+          </div>
         </>
-    )
+      }
+    </>
+  );
 }
 
 // //<h1>Details</h1>
