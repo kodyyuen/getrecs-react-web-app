@@ -35,5 +35,5 @@ export const registerThunk = createAsyncThunk(
 
 export const toggleSongLikeThunk = createAsyncThunk(
   'likeSong',
-  async ({uid, songIds}) => await toggleSongLike(uid, songIds)
+  async ({songIds}) => await toggleSongLike(songIds)
 )

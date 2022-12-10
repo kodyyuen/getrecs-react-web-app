@@ -31,9 +31,9 @@ export const profile = async () => {
   return response.data;
 }
 
-export const toggleSongLike = async (uid, songIds) => {
+export const toggleSongLike = async (songIds) => {
   const response = await api.put(`${BASE_API_URL}/likeSong`, {
-    uid, songIds
+    songIds
   });
   return response.data;
 }
