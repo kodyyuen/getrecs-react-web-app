@@ -2,70 +2,85 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { findSongBySongIDThunk } from "./songs-thunks";
+import { toggleSongLikeThunk } from "../users/users-thunk";
 import { getAlbumName, getArtistName, getDuration, getImage, getSongID, getSongLink, getSongName, getArtistLink } from "./songs-helpers"
 
 const Details = () => {
-    const { songID } = useParams();
-    const { details } = useSelector((state) => state.songs);
-    const [like, setLike] = useState(false);
-    //const {likes} = useSelector((state) => state.likes);
-    const {currentUser} = useSelector((state) => state.users);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(findSongBySongIDThunk(songID))
-    }, [])
-    const handleLikeButton = () => {
+  const { songID } = useParams();
+  const { details } = useSelector((state) => state.songs);
+  const { currentUser } = useSelector((state) => state.users);
+  const [liked, setLiked] = useState(currentUser && currentUser.likes.includes(songID));
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(findSongBySongIDThunk(songID))
+  }, [])
+
+  useEffect(() => {
+    setLiked(currentUser && currentUser.likes.includes(songID));
+  }, [currentUser])
+
+  const handleLikeButton = () => {
+    let newlikedSongs = [songID];
+    if (currentUser) {
+      if (liked) {
+        newlikedSongs = [...currentUser.likes.filter(song => song !== songID)];
+      } else {
+        newlikedSongs = [songID, ...currentUser.likes];
+      }
     }
-    return (
+
+    dispatch(toggleSongLikeThunk({uid: currentUser._id, songIds: newlikedSongs}));
+  }
+
+  return (
+    <>
+      <h1>Details</h1>
+      {
+        details &&
         <>
-            <h1>Details</h1>
-            {
-                details &&
-                <>
-                    <div className="row">
-                        <div className="col-5">
-                            <img src={getImage(details)} className="img-fluid" alt="song art" />
-                        </div>
-                        <div className="col-7 text-dark">
-                            <h1>
-                                <a href={getSongLink(details)} target="_blank" rel="noreferrer">{getSongName(details)}</a>
-                            </h1>
-                            <h3>
-                                <a href={getArtistLink(details)} target="_blank" rel="noreferrer">{getArtistName(details)}</a>
-                            </h3>
-                            <h4>
-                                {getDuration(details)}
-                            </h4>
-                            <i className={`fa-3x fa-heart me-2 ${like ? "fa text-success" : "fa-regular text-muted"}`}
-                                onClick={() => setLike(!like)
-                                }></i>
-                        </div>
-                    </div>
+          <div className="row">
+            <div className="col-5">
+              <img src={getImage(details)} className="img-fluid" alt="song art" />
+            </div>
+            <div className="col-7 text-dark">
+              <h1>
+                <a href={getSongLink(details)} target="_blank" rel="noreferrer">{getSongName(details)}</a>
+              </h1>
+              <h3>
+                <a href={getArtistLink(details)} target="_blank" rel="noreferrer">{getArtistName(details)}</a>
+              </h3>
+              <h4>
+                {getDuration(details)}
+              </h4>
+              <i className={`fa-3x fa-heart me-2 ${liked ? "fa text-success" : "fa-regular text-muted"}`}
+                onClick={handleLikeButton}></i>
+            </div>
+          </div>
 
-                    <div className="row mt-5">
-                        <h1>Likes</h1>
-                        <div className="col">
-                            <ul className="list-group">
-                                <li className="list-group-item">
+          <div className="row mt-5">
+            <h1>Likes</h1>
+            <div className="col">
+              <ul className="list-group">
+                <li className="list-group-item">
 
-                                </li>
-                                <li className="list-group-item">
+                </li>
+                <li className="list-group-item">
 
-                                </li>
-                                <li className="list-group-item">
+                </li>
+                <li className="list-group-item">
 
-                                </li>
-                            </ul>
+                </li>
+              </ul>
 
 
-                        </div>
-                    </div>
-                </>
-
-            }
+            </div>
+          </div>
         </>
-    )
+
+      }
+    </>
+  )
 }
 
 // //<h1>Details</h1>

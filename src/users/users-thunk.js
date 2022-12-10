@@ -4,7 +4,8 @@ import {
   login, 
   logout, 
   profile, 
-  register 
+  register,
+  toggleSongLike
 } from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
@@ -30,4 +31,9 @@ export const loginThunk = createAsyncThunk(
 export const registerThunk = createAsyncThunk(
   'register',
   async (user) => await register(user)
+)
+
+export const toggleSongLikeThunk = createAsyncThunk(
+  'likeSong',
+  async ({uid, songIds}) => await toggleSongLike(uid, songIds)
 )

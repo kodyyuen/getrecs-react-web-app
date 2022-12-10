@@ -31,6 +31,13 @@ export const profile = async () => {
   return response.data;
 }
 
+export const toggleSongLike = async (uid, songIds) => {
+  const response = await api.put(`${BASE_API_URL}/likeSong`, {
+    uid, songIds
+  });
+  return response.data;
+}
+
 const deleteUser = async (uid) => { 
   const response = await api.delete(`${BASE_API_URL}/deleteUser/${uid}`);
   return response.data;
