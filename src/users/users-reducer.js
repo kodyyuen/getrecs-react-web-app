@@ -6,6 +6,8 @@ import {
   profileThunk,
   registerThunk,
   toggleSongLikeThunk,
+  updateNameThunk,
+  updateUserThunk,
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -30,9 +32,9 @@ const usersReducer = createSlice({
     [loginThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload
     },
-    [toggleSongLikeThunk.fulfilled]: (state, action) => {
-      state.currentUser = {...action.payload};
-    },
+    [updateUserThunk.fulfilled]: (state, action) => {
+      state.currentUser = action.payload;
+    }
   }
 })
 

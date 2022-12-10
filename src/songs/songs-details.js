@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { findSongBySongIDThunk } from "./songs-thunks";
-import { toggleSongLikeThunk } from "../users/users-thunk";
+import { toggleSongLikeThunk, updateUserThunk } from "../users/users-thunk";
 import { getAlbumName, getArtistName, getDuration, getImage, getSongID, getSongLink, getSongName, getArtistLink } from "./songs-helpers"
 
 const Details = () => {
@@ -27,8 +27,7 @@ const Details = () => {
         } else {
             newlikedSongs = [songID, ...currentUser.likes];
         }
-
-        dispatch(toggleSongLikeThunk({ songIds: newlikedSongs }));
+        dispatch(updateUserThunk({likes: newlikedSongs}));
     }
 
     return (

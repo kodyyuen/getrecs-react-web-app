@@ -31,18 +31,19 @@ export const profile = async () => {
   return response.data;
 }
 
-export const toggleSongLike = async (songIds) => {
-  const response = await api.put(`${BASE_API_URL}/likeSong`, {
-    songIds
-  });
+// export const toggleSongLike = async (songIds) => {
+//   const response = await api.put(`${BASE_API_URL}/likeSong`, {
+//     songIds
+//   });
+//   return response.data;
+// }
+
+export const updateUser = async (updates) => {
+  const response = await api.put(`${USER_API_URL}/update`, updates);
   return response.data;
 }
 
 const deleteUser = async (uid) => { 
   const response = await api.delete(`${BASE_API_URL}/deleteUser/${uid}`);
   return response.data;
-}
-
-const updateUser = async (user) => {
-  const response = await api.put(`${BASE_API_URL}/update/`, user);
 }

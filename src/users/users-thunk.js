@@ -3,9 +3,12 @@ import {
   findUserById, 
   login, 
   logout, 
+  nameChange, 
   profile, 
   register,
-  toggleSongLike
+  toggleSongLike,
+  updateName,
+  updateUser
 } from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
@@ -33,7 +36,12 @@ export const registerThunk = createAsyncThunk(
   async (user) => await register(user)
 )
 
-export const toggleSongLikeThunk = createAsyncThunk(
-  'likeSong',
-  async ({songIds}) => await toggleSongLike(songIds)
+// export const toggleSongLikeThunk = createAsyncThunk(
+//   'likeSong',
+//   async ({songIds}) => await toggleSongLike(songIds)
+// )
+
+export const updateUserThunk = createAsyncThunk(
+  'updateUser',
+  async (updates) => await updateUser(updates)
 )
