@@ -33,17 +33,25 @@ const Navigation = () => {
             Register
           </Link>
         </li>
-        <li className={`nav-item ${!currentUser ? 'd-none' : ''}`}>
-          <Link to="/profile"
-            className={`nav-link ${parts[1] === 'profile' ? 'active' : ''}`}>
-            Profile
-          </Link>
-        </li>
+		{
+			currentUser &&
+			<li className={`nav-item ${!currentUser ? 'd-none' : ''}`}>
+			<Link to={`/profile/${currentUser._id}`}
+				className={`nav-link ${parts[1] === 'profile' && parts.length == 3 ? 'active' : ''}`}>
+				Profile
+			</Link>
+			</li>
+		}
       </div>
-      <li className="nav-item">
-        {/* TODO: remove this/replace with something else */}
-        {currentUser ? `Welcome, ${currentUser.username}` : ''}
-      </li>
+	  {
+		currentUser &&
+		<li className={`nav-item ${!currentUser ? 'd-none' : ''}`}>
+			{/* TODO: remove this/replace with something else */}
+			<Link to="/profile">
+				{currentUser ? `Welcome, ${currentUser.username}` : ''}
+			</Link>
+		</li>
+	  }
 		</ul>
 	)
 }
