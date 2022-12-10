@@ -31,7 +31,7 @@ const Details = () => {
       }
     }
 
-    dispatch(toggleSongLikeThunk({uid: currentUser._id, songIds: newlikedSongs}));
+    dispatch(toggleSongLikeThunk({ songIds: newlikedSongs }));
   }
 
   return (
@@ -54,35 +54,36 @@ const Details = () => {
               <h4>
                 {getDuration(details)}
               </h4>
-              <i className={`fa-3x fa-heart me-2 ${liked ? "fa text-success" : "fa-regular text-muted"}`}
-                onClick={handleLikeButton}></i>
+              {
+                currentUser &&
+                <i className={`fa-3x fa-heart me-2 ${liked ? "fa text-success" : "fa-regular text-muted"}`}
+                  onClick={handleLikeButton}></i>
+              }
             </div>
           </div>
 
           <div className="row mt-5">
-            <h1>Likes</h1>
-            {likedBy ? <pre>{likedBy}</pre> : 'TEST TEST'}
-            <div className="col">
-              <ul className="list-group">
-                <li className="list-group-item">
-
-                </li>
-                <li className="list-group-item">
-
-                </li>
-                <li className="list-group-item">
-
-                </li>
-              </ul>
-
-
-            </div>
+            {likedBy && likedBy.length > 0 ? (
+              <>
+                <h1>Recently Liked By:</h1>
+                <div className="col">
+                  <ul className="list-group">
+                    {likedBy.map((user, index) => 
+                      <li className="list-group-item" key={index}>
+                        {user.username}
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <h3>Be the first to like this song!</h3>
+            )}
           </div>
         </>
-
       }
     </>
-  )
+  );
 }
 
 // //<h1>Details</h1>

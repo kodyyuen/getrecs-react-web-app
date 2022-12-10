@@ -31,15 +31,15 @@ export const profile = async () => {
   return response.data;
 }
 
-export const toggleSongLike = async (uid, songIds) => {
+export const toggleSongLike = async (songIds) => {
   const response = await api.put(`${BASE_API_URL}/likeSong`, {
-    uid, songIds
+    songIds
   });
   return response.data;
 }
 
 export const findWhoRecentlyLiked = async (songID) => {
-  const response = await api.get(`http://localhost:4000/recentlyLikedBy/${songID}`);
+  const response = await api.get(`${BASE_API_URL}/recentlyLikedBy/${songID}`);
   return response.data;
 }
 
