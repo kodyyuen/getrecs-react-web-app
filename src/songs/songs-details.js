@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { findSongBySongIDThunk } from "./songs-thunks";
 import { findWhoRecentlyLikedThunk, updateUserThunk } from "../users/users-thunk";
 import { getAlbumName, getArtistName, getDuration, getImage, getSongID, getSongLink, getSongName, getArtistLink } from "./songs-helpers"
+import { Link } from "react-router-dom";
 
 const Details = () => {
   const { songID } = useParams();
@@ -14,8 +15,11 @@ const Details = () => {
 
   useEffect(() => {
     dispatch(findSongBySongIDThunk(songID))
-    dispatch(findWhoRecentlyLikedThunk(songID))
   }, [])
+
+  useEffect(() => {
+    dispatch(findWhoRecentlyLikedThunk(songID))
+  }, [liked])
 
   useEffect(() => {
     setLiked(currentUser && currentUser.likes.includes(songID));
@@ -68,7 +72,7 @@ const Details = () => {
                   <ul className="list-group">
                     {likedBy.map((user, index) => 
                       <li className="list-group-item" key={index}>
-                        {user.username}
+                        <Link to={`/profile/${user._id}`}>{user.username}</Link>
                       </li>
                     )}
                   </ul>

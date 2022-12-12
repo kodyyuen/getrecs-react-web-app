@@ -30,29 +30,7 @@ const store = configureStore({
     }
 })
 
-//apiCall()
-
 function App() {
-
-    // useEffect(() => {
-    //     const spotifyToken = getTokenFromUrl().access_token;
-    //     console.log("Spotify Token: " + spotifyToken)
-    //     const client_cred = apiCall().access_token;
-    //     console.log("Client cred: " + client_cred)
-    // })
-
-    // let s = new SpotifyWebApi()
-    // s.setAccessToken("BQDAkaPU_3Rne_TYZ5g-HASJYGfhWgxIR03yILgv-X18gxiFtYs7zL5Ym0Pb8KAboUJABYcOGm7iVQzg94_t20TIbkfmY2KXKRZrayaKLufDCcsKYkw")
-    // s.searchTracks("wish", (err, data) => {
-    //     if (err) {
-    //         console.log(err)
-    //     }
-    //     else {
-    //         console.log('Search result: ', data)
-    //     }
-    // })
-
-    //findSongBySearchTerm()
     return (
         <div className="container mt-4 mb-4">
             <Provider store={store}>

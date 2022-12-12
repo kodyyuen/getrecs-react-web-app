@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { logoutThunk, profileThunk, updateUserThunk } from "./users-thunk";
+import { logoutThunk, updateUserThunk } from "./users-thunk";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import { getAlbumName, getArtistName, getDuration, getImage, getSongID, getSongLink, getSongName, getArtistLink } from "../songs/songs-helpers"
-import { Link } from "react-router-dom";
 import { findMultipleSongsBySongIDThunk } from "../songs/songs-thunks";
 import { RenderSongsList } from "../songs/songs-list";
 
@@ -17,9 +15,7 @@ const Profile = () => {
     navigate('/login')
   }
   useEffect(() => {
-    dispatch(updateUserThunk())
     dispatch(findMultipleSongsBySongIDThunk(currentUser.likes))
-    dispatch(profileThunk())
   }, [])
   const handleUpdateName = (newName) => {
     dispatch(updateUserThunk({ name: newName }))
