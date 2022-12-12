@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk, updateUserThunk } from "./users-thunk";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import { RenderSongsList } from "../songs/songs-list";
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -33,13 +34,17 @@ const Profile = () => {
           className="form-control w-50"
           placeholder="Your name"
           value={currentUser.name} />
-        <button className="btn btn-primary w-25">Save</button>
       </div>
       <button
         className="btn btn-danger"
         onClick={handleLogoutBtn}>
         Logout
       </button>
+      <h1>Likes</h1>
+      {
+        currentUser &&
+        <RenderSongsList songs={currentUser.likes}/>
+      }
     </>
   )
 }

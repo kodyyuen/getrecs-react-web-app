@@ -1,12 +1,3 @@
-/**
- * This is an example of a basic node.js script that performs
- * the Client Credentials oAuth2 flow to authenticate against
- * the Spotify Accounts.
- *
- * For more information, read
- * https://developer.spotify.com/web-api/authorization-guide/#client_credentials_flow
- */
-
 /*
 TODO:
 - Change client secret to environment variable
@@ -14,7 +5,6 @@ TODO:
 
 import axios from 'axios'
 import { Buffer } from 'buffer';
-import SpotifyWebApi from 'spotify-web-api-js';
 
 // const client_id = '9534d135519d4b049b481e8bc6862e40'; // Your client id
 // const client_secret = '958d137cb4e44d4b9eca6ad5333bf62e'; // Your secret
@@ -48,23 +38,15 @@ const getToken = async () => {
     }
 }
 
-const getSpotify = () => {
-    const s = new SpotifyWebApi()
-    const token = getToken()
-    s.setAccessToken(token)
-    return s
-}
-
 const createSearchURL = (term) => {
     return `https://api.spotify.com/v1/search?q=${term}&type=track`
 }
 
 export const findSongBySearchTerm = async (term) => {
     if (!API_TOKEN) {
-        getToken()
+        await getToken()
     }
     const response = await axios.get(createSearchURL(term), { headers: { "Authorization": `Bearer ${API_TOKEN}` } })
-    console.log(response.data)
     return response.data.tracks.items
 }
 

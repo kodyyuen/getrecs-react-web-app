@@ -28,7 +28,7 @@ const songsReducer = createSlice({
       state.details = action.payload;
     },
     [findMultipleSongsBySongIDThunk.fulfilled]: (state, action) => {
-      state.multipleDetails = action.payload;
+      state.multipleDetails = action.payload.tracks;
     },
     [findWhoRecentlyLikedThunk.fulfilled]: (state, action) => {
       state.likedBy = action.payload;

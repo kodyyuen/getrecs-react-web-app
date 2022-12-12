@@ -12,7 +12,9 @@ const SongsSearch = () => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(findSongBySearchTermThunk(searchTerm))
+        if (searchTerm !== '') {
+            dispatch(findSongBySearchTermThunk(searchTerm))
+        }
     }, [])
 
     return (
