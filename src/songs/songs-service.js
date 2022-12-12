@@ -112,3 +112,32 @@ export const getRecommendationsBySongs = async (songList) => {
   });
   return response.data;
 }
+
+export const getRecommendationsByGenres = async (genres) => {
+  if (!API_TOKEN) {
+    await getToken();
+  }
+
+  const formattedGenreList = genres.join(',');
+  const query = {
+    seed_artists: '',
+    seed_genres: formattedGenreList,
+    seed_tracks: '',
+  }
+  const response = await axios.get(RECOMMENDATIONS_URL, {
+    headers: { "Authorization": `Bearer ${API_TOKEN}` },
+    params: query,
+  });
+  return response.data;
+}
+
+export const getGenres = async () => {
+  if (!API_TOKEN) {
+    await getToken();
+  }
+
+  const response = await axios.get(`${RECOMMENDATIONS_URL}/available-genre-seeds`, {
+    headers: { "Authorization": `Bearer ${API_TOKEN}` },
+  });
+  return response.data;
+}

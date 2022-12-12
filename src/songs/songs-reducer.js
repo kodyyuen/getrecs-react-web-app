@@ -4,6 +4,8 @@ import {
   findMultipleSongsBySongIDThunk,
   findSongBySearchTermThunk,
   findSongBySongIDThunk,
+  getGenresThunk,
+  getRecommendationsByGenresThunk,
 } from "./songs-thunks";
 
 const initialState = {
@@ -11,6 +13,8 @@ const initialState = {
   details: null,
   multipleDetails: null,
   likedBy: [],
+  genres: [],
+  tempRecs: [], // temp storage for recommendations generated for anon users
 }
 
 const songsReducer = createSlice({
@@ -28,6 +32,13 @@ const songsReducer = createSlice({
     },
     [findWhoRecentlyLikedThunk.fulfilled]: (state, action) => {
       state.likedBy = action.payload;
+    },
+    [getGenresThunk.fulfilled]: (state, action) => {
+      state.genres = action.payload.genres;
+    },
+    [getRecommendationsByGenresThunk.fulfilled]: (state, action) => {
+      console.log('and here');
+      state.tempRecs = action.payload.tracks;
     }
   }
 })

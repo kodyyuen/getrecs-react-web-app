@@ -2,7 +2,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   findMultipleSongsBySongID,
   findSongBySearchTerm,
-  findSongBySongID
+  findSongBySongID,
+  getGenres,
+  getRecommendationsByGenres
 } from "./songs-service";
 
 export const findSongBySearchTermThunk = createAsyncThunk(
@@ -18,4 +20,15 @@ export const findSongBySongIDThunk = createAsyncThunk(
 export const findMultipleSongsBySongIDThunk = createAsyncThunk(
   "findMultipleSongsBySongID",
   async (songList) => await findMultipleSongsBySongID(songList)
+)
+
+export const getGenresThunk = createAsyncThunk(
+  "getGenres",
+  async () => await getGenres()
+)
+
+// for users that aren't logged in
+export const getRecommendationsByGenresThunk = createAsyncThunk(
+  "getRecommendationsByGenres",
+  async (genres) => await getRecommendationsByGenres(genres)
 )

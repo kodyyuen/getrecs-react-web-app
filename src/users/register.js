@@ -5,8 +5,8 @@ import { registerThunk } from "./users-thunk"
 
 const Register = () => {
     const {currentUser} = useSelector((state) => state.users)
-    const [username, setUsername] = useState('alice')
-    const [password, setPassword] = useState('alice1234')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     const handleRegisterBtn = () => {
         dispatch(registerThunk({username, password}))
