@@ -13,11 +13,13 @@ const PublicProfile = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(findUserByIdThunk(uid))
     if (publicProfile) {
-      dispatch(findMultipleSongsBySongIDThunk(publicProfile.likes))
+      dispatch(findMultipleSongsBySongIDThunk(publicProfile.likes));
+    } else {
+      dispatch(findUserByIdThunk(uid));
     }
   }, [uid, publicProfile]);
+  
   return (
     <>
       <h1>Public Profile</h1>
