@@ -108,7 +108,7 @@ const Recs = () => {
 
           <h5 className="mt-3">{"Select one or more genres"}</h5>
           <p>
-            Select mulitple options by holding Ctrl/Cmd and clicking. A maximum of five genres can be selected.
+            Select multiple options by holding Ctrl/Cmd and clicking. A maximum of five genres can be selected.
           </p>
           <span>
             Selected genres:
