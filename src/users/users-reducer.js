@@ -8,6 +8,7 @@ import {
   updateUserThunk,
   getRecommendationsByLikedSongsThunk,
   getRecommendationsByGenresAndSaveThunk,
+  deleteRecommendationsThunk,
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -39,6 +40,9 @@ const usersReducer = createSlice({
       state.currentUser = action.payload;
     },
     [getRecommendationsByGenresAndSaveThunk.fulfilled]: (state, action) => {
+      state.currentUser = action.payload;
+    },
+    [deleteRecommendationsThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     }
   }

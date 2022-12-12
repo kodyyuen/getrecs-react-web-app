@@ -62,6 +62,13 @@ export const getRecommendationsByGenresAndSave = async (genres) => {
   }
 }
 
+export const deleteRecommendations = async () => {
+  const response = await api.put(`${USER_API_URL}/update`, {
+    recommendations: []
+  });
+  return response.data;
+}
+
 const deleteUser = async (uid) => { 
   const response = await api.delete(`${BASE_API_URL}/deleteUser/${uid}`);
   return response.data;

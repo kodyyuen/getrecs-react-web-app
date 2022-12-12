@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import 'react-tooltip/dist/react-tooltip.css';
-import { getRecommendationsByLikedSongsThunk, getRecommendationsByGenresAndSaveThunk } from "../users/users-thunk";
+import { getRecommendationsByLikedSongsThunk, getRecommendationsByGenresAndSaveThunk, deleteRecommendationsThunk } from "../users/users-thunk";
 import { getGenresThunk, getRecommendationsByGenresThunk } from "../songs/songs-thunks";
 import {
   getAlbumName,
@@ -58,8 +58,9 @@ const Recs = () => {
     }
   }
 
-  // TODO
-  const handleClearRecommentations = () => { }
+  const handleClearRecommendations = () => {
+    dispatch(deleteRecommendationsThunk());
+  }
 
   const handleSelectGenres = (e) => {
     const newSelectedGenres = [...e.target.options]
@@ -149,7 +150,7 @@ const Recs = () => {
                   </div>
                 </li>
               )}
-              <button type="button" className="list-group-item list-group-item-action" onClick={handleClearRecommentations}>
+              <button type="button" className="list-group-item list-group-item-action" onClick={handleClearRecommendations}>
                 Clear recommendation history
               </button>
             </ul>
