@@ -1,9 +1,22 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import 'react-tooltip/dist/react-tooltip.css';
+import { getRecommendationsByLikedSongsThunk } from "../users/users-thunk";
+import { 
+  getAlbumName, 
+  getArtistName, 
+  getDuration, 
+  getImage, 
+  getSongID, 
+  getSongLink, 
+  getSongName,
+} from "../songs/songs-helpers";
 
 const Recs = () => {
-  const { currentUser } = useSelector((state) => state.users);
+  const { currentUser } = useSelector(state => state.users);
+  const dispatch = useDispatch();
+  // TODO: update this, logged in users without any liked songs can't get recs from liked songs
   const TOOLTIP_MSG = currentUser
     ? "Recommendations will be generated based on your liked songs."
     : "Recommendations will be generated based on selected genres. Log in to generate recommendations based on liked songs."
@@ -12,7 +25,16 @@ const Recs = () => {
     console.log('get recs for anon')
   }
   const handleGetRecsLoggedInUser = () => {
-    console.log(`get recs for ${currentUser.username}`)
+    // the spotify recommendations endpoint can be seeded with up to five tracks, we're using five random tracks from the user's list of liked tracks
+    let seedTracks = [];
+    if (currentUser.likes.length >= 5) {
+      const shuffledLikes = [...currentUser.likes].sort((a, b) => 0.5 - Math.random())
+      seedTracks = shuffledLikes.slice(0, 5);
+    } else {
+      seedTracks = currentUser.likes;
+    }
+
+    dispatch(getRecommendationsByLikedSongsThunk(seedTracks));
   }
   const handleClearRecommentations = () => { }
 
@@ -21,7 +43,7 @@ const Recs = () => {
       <h1>GetRecs!</h1>
 
       <button type="button" className="btn btn-primary"
-        onClick={currentUser ? handleGetRecsLoggedInUser : handleGetRecsAnonUser}>
+        onClick={currentUser && currentUser.likes.length > 0 ? handleGetRecsLoggedInUser : handleGetRecsAnonUser}>
         Generate Recommendations
       </button>
 
@@ -33,15 +55,23 @@ const Recs = () => {
           <h3>Recently Recommended Songs</h3>
           <div className="col">
             <ul className="list-group">
-              {/* {likedBy.map((user, index) =>
-                <li className="list-group-item" key={index}>
-                  {user.username}
+              {currentUser.recommendations.map((song, idx) =>
+                <li key={idx} className="list-group-item p-2">
+                  <div className="row">
+                    <div className="col-1">
+                      <a href={getSongLink(song)} target="_blank" rel="noreferrer"><img src={getImage(song)} height={100} alt="song art" /></a>
+                    </div>
+                    <div className="col-7 ps-5">
+                      <Link to={`/details/${getSongID(song)}`}>
+                        {getSongName(song)} - {getArtistName(song)}
+                      </Link>
+                    </div>
+                    <div className="col-3">{getAlbumName(song)}</div>
+                    <div className="col-1">{getDuration(song)}</div>
+                  </div>
                 </li>
-              )} */}
-              <li className="list-group-item">Placeholder Song 1</li>
-              <li className="list-group-item">Placeholder Song 2</li>
-              <li className="list-group-item">Placeholder Song 3</li>
-              <button type="button" class="list-group-item list-group-item-action" onClick={handleClearRecommentations}>
+              )}
+              <button type="button" className="list-group-item list-group-item-action" onClick={handleClearRecommentations}>
                 Clear recommendation history
               </button>
             </ul>
@@ -57,7 +87,7 @@ const Recs = () => {
               <li className="list-group-item">Placeholder Song 3</li>
             </ul>
           </div>
-          <h5 className="mt-4">Login to save your recommendations.</h5>
+          <h5 className="mt-4">Log in to save your recommendations.</h5>
         </div>
       )}
     </>

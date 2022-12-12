@@ -32,7 +32,8 @@ const client_id = '9534d135519d4b049b481e8bc6862e40'; // Your client id
 const client_secret = '958d137cb4e44d4b9eca6ad5333bf62e'; // Your secret
 const auth_token = Buffer.from(`${client_id}:${client_secret}`, 'utf-8').toString('base64');
 
-const SEARCH_TRACK_URL = "https://api.spotify.com/v1/tracks"
+const SEARCH_TRACK_URL = "https://api.spotify.com/v1/tracks";
+const RECOMMENDATIONS_URL = "https://api.spotify.com/v1/recommendations";
 
 const getToken = async () => {
     try {
@@ -91,4 +92,23 @@ export const findMultipleSongsBySongID = async (songList) => {
     const songListFormatted = songList.join("%2C");
     const response = await axios.get(`${SEARCH_TRACK_URL}?ids=${songListFormatted}`, { headers: { "Authorization": `Bearer ${API_TOKEN}` } })
     return response.data;
+}
+
+export const getRecommendationsBySongs = async (songList) => {
+  if (!API_TOKEN) {
+    await getToken();
+  }
+
+  const formattedSongList = songList.join(',');
+  const query = {
+    seed_artists: '',
+    seed_genres: '',
+    seed_tracks: formattedSongList,
+  }
+
+  const response = await axios.get(RECOMMENDATIONS_URL, {
+    headers: { "Authorization": `Bearer ${API_TOKEN}` },
+    params: query,
+  });
+  return response.data;
 }

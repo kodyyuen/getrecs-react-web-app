@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getRecommendationsBySongs } from "../songs/songs-service";
 
 const USER_API_URL = 'http://localhost:4000/users'
 const BASE_API_URL = 'http://localhost:4000'
@@ -39,6 +40,16 @@ export const updateUser = async (updates) => {
 export const findWhoRecentlyLiked = async (songID) => {
   const response = await api.get(`${BASE_API_URL}/recentlyLikedBy/${songID}`);
   return response.data;
+}
+
+export const getRecommendationsByLikedSongs = async (songs) => {
+  const recs = await getRecommendationsBySongs(songs);
+  if (recs.tracks) {
+    const response = await api.put(`${USER_API_URL}/update`, {recommendations: recs.tracks});
+    return response.data;
+  } else {
+    console.log('error occured when fetching recs', recs);
+  }
 }
 
 const deleteUser = async (uid) => { 

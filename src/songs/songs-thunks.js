@@ -1,5 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { findMultipleSongsBySongID, findSongBySearchTerm, findSongBySongID } from "./songs-service";
+import {
+  findMultipleSongsBySongID,
+  findSongBySearchTerm,
+  findSongBySongID
+} from "./songs-service";
 
 export const findSongBySearchTermThunk = createAsyncThunk(
   "findSongBySearchTerm",
@@ -12,6 +16,6 @@ export const findSongBySongIDThunk = createAsyncThunk(
 )
 
 export const findMultipleSongsBySongIDThunk = createAsyncThunk(
-    "findMultipleSongsBySongID",
-    async (songList) => await findMultipleSongsBySongID(songList)
-  )
+  "findMultipleSongsBySongID",
+  async (songList) => await findMultipleSongsBySongID(songList)
+)

@@ -7,6 +7,7 @@ import {
   register,
   findWhoRecentlyLiked,
   updateUser,
+  getRecommendationsByLikedSongs,
 } from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
@@ -42,4 +43,9 @@ export const updateUserThunk = createAsyncThunk(
 export const findWhoRecentlyLikedThunk = createAsyncThunk(
   "findRecentlyLikedBy",
   async (songID) => await findWhoRecentlyLiked(songID)
+)
+
+export const getRecommendationsByLikedSongsThunk = createAsyncThunk(
+  "getRecommendationsByLikedSongs",
+  async (songs) => await getRecommendationsByLikedSongs(songs)
 )
