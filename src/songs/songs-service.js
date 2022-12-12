@@ -16,22 +16,13 @@ import axios from 'axios'
 import { Buffer } from 'buffer';
 import SpotifyWebApi from 'spotify-web-api-js';
 
-//const SEARCH_URL = "https://api.spotify.com/v1/search?q=wish&type=track"
-let API_TOKEN = null
-
-// const apiCall = async () => {
-//     const response = await axios.get(SEARCH_URL, {headers: {"Authorization": `Bearer ${API_TOKEN}`}})
-//     const trackId = response.data.tracks.items[0].id
-//     console.log(trackId)
-//     const trackData = await axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, {headers: {"Authorization": `Bearer ${API_TOKEN}`}})
-//     console.log(trackData.data)
-//     const test = await axios.get("https://api.spotify.com/v1/search?query=wish&type=track&locale=en-US%2Cen%3Bq%3D0.6&offset=0&limit=20", {headers: {"Authorization": `Bearer ${API_TOKEN}`}})
-//     console.log(test.data)
-// }
-const client_id = '9534d135519d4b049b481e8bc6862e40'; // Your client id
-const client_secret = '958d137cb4e44d4b9eca6ad5333bf62e'; // Your secret
+// const client_id = '9534d135519d4b049b481e8bc6862e40'; // Your client id
+// const client_secret = '958d137cb4e44d4b9eca6ad5333bf62e'; // Your secret
+const client_id = '12bcf5b121be408ebd5d58e851ec42df'
+const client_secret = 'c9a51eeec58d4bfb9d6d2311276026bb'
 const auth_token = Buffer.from(`${client_id}:${client_secret}`, 'utf-8').toString('base64');
 
+let API_TOKEN = null
 const SEARCH_TRACK_URL = "https://api.spotify.com/v1/tracks";
 const RECOMMENDATIONS_URL = "https://api.spotify.com/v1/recommendations";
 
@@ -79,7 +70,7 @@ export const findSongBySearchTerm = async (term) => {
 
 export const findSongBySongID = async (songID) => {
     if (!API_TOKEN) {
-        getToken();
+        await getToken();
     }
     const response = await axios.get(`${SEARCH_TRACK_URL}/${songID}`, { headers: { "Authorization": `Bearer ${API_TOKEN}` } })
     return response.data
@@ -87,7 +78,7 @@ export const findSongBySongID = async (songID) => {
 
 export const findMultipleSongsBySongID = async (songList) => {
     if (!API_TOKEN) {
-        getToken();
+        await getToken();
     }
     const songListFormatted = songList.join("%2C");
     const response = await axios.get(`${SEARCH_TRACK_URL}?ids=${songListFormatted}`, { headers: { "Authorization": `Bearer ${API_TOKEN}` } })
