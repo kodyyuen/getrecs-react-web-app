@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router";
-import { loginUrl } from "../spotify";
 import { loginThunk } from "./users-thunk";
 
 const Login = () => {
@@ -23,7 +22,6 @@ const Login = () => {
     return (
         <>
             <h1>Login</h1>
-            <a href={loginUrl} id="signInButton">Sign in</a>
             <input
                 onChange={(e) => setUsername(e.target.value)}
                 className="form-control"
