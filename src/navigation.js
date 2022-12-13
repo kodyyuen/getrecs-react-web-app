@@ -7,7 +7,7 @@ const Navigation = () => {
 	const { pathname } = useLocation()
 	const parts = pathname.split('/')
 	return (
-		<ul className="nav nav-pills d-flex flex-row justify-content-between">
+		<ul className="nav nav-pills d-flex flex-row justify-content-between mb-3">
       <div className="d-flex flex-row">
         <li className="nav-item">
           <Link to="/"

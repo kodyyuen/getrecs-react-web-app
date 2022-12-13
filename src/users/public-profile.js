@@ -25,16 +25,18 @@ const PublicProfile = () => {
     <>
       <h1>Public Profile</h1>
       <h1>{publicProfile && publicProfile.username}</h1>
-      <ul className="list-group">
-        {
-          // publicProfile && multipleDetails &&
-          //   {
-          //     <RenderSongsList songs={multipleDetails}/>
-          //   }
-          publicProfile && <RenderSongsList songs={publicProfile.likesData}/>
-        
-      }
-      </ul>
+      
+        <ul className="list-group">
+          {
+            // publicProfile && multipleDetails &&
+            //   {
+            //     <RenderSongsList songs={multipleDetails}/>
+            //   }
+            publicProfile && <RenderSongsList songs={publicProfile.likesData} />
+
+          }
+        </ul>
+      
     </>
   )
 }
