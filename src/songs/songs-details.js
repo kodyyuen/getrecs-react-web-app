@@ -27,13 +27,17 @@ const Details = () => {
 
     const handleLikeButton = () => {
         let newlikedSongs = [songID];
+        let newLikedSongData = [];
         if (liked) {
             newlikedSongs = [...currentUser.likes.filter(song => song !== songID)];
+            newLikedSongData = [...currentUser.likesData.filter(songData => songData.id !== songID)]
         } else {
             newlikedSongs = [songID, ...currentUser.likes];
+            newLikedSongData = [details, ...currentUser.likesData];
         }
 
-        dispatch(updateUserThunk({ likes: newlikedSongs }));
+        dispatch(updateUserThunk({ likes: newlikedSongs,
+                                   likesData: newLikedSongData}));
     }
 
   return (

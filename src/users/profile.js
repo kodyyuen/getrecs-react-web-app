@@ -8,15 +8,15 @@ import { RenderSongsList } from "../songs/songs-list";
 const Profile = () => {
   const navigate = useNavigate()
   const { currentUser } = useSelector((state) => state.users)
-  const { multipleDetails } = useSelector((state) => state.songs)
+  //const { multipleDetails } = useSelector((state) => state.songs)
   const dispatch = useDispatch()
   const handleLogoutBtn = () => {
     dispatch(logoutThunk())
     navigate('/login')
   }
-  useEffect(() => {
-    dispatch(findMultipleSongsBySongIDThunk(currentUser.likes))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(findMultipleSongsBySongIDThunk(currentUser.likes))
+  // }, [])
   const handleUpdateName = (newName) => {
     dispatch(updateUserThunk({ name: newName }))
   }
@@ -38,7 +38,8 @@ const Profile = () => {
       <div className="row">
         <ul className="list-group pe-0">
           {
-            multipleDetails && <RenderSongsList songs={multipleDetails}/>
+            //multipleDetails && <RenderSongsList songs={multipleDetails}/>
+            currentUser && <RenderSongsList songs={currentUser.likesData}/>
           }
         </ul>
       </div>
