@@ -6,6 +6,7 @@ import {
   findSongBySongIDThunk,
   getGenresThunk,
   getRecommendationsByGenresThunk,
+  getTopTenSongsThunk,
 } from "./songs-thunks";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   likedBy: [],
   genres: [],
   tempRecs: [], // temp storage for recommendations generated for anon users
+  topTenSongs: [],
 }
 
 const songsReducer = createSlice({
@@ -37,8 +39,10 @@ const songsReducer = createSlice({
       state.genres = action.payload.genres;
     },
     [getRecommendationsByGenresThunk.fulfilled]: (state, action) => {
-      console.log('and here');
       state.tempRecs = action.payload.tracks;
+    },
+    [getTopTenSongsThunk.fulfilled]: (state, action) => {
+      state.topTenSongs = action.payload;
     }
   }
 })

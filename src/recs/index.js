@@ -1,23 +1,35 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import 'react-tooltip/dist/react-tooltip.css';
 import { getRecommendationsByLikedSongsThunk, getRecommendationsByGenresAndSaveThunk, deleteRecommendationsThunk } from "../users/users-thunk";
-import { getGenresThunk, getRecommendationsByGenresThunk } from "../songs/songs-thunks";
+import { getGenresThunk, getRecommendationsByGenresThunk, getTopTenSongsThunk } from "../songs/songs-thunks";
 import { RenderSongsList } from "../songs/songs-list";
+
+/*
+    TODO:
+    - collapse/expand button for current recs
+    - collapse all/expand button for prev recs
+    - collapse/expand + clear button for individual sets of prev recs
+*/
 
 const Recs = () => {
     const [recMethod, setRecMethod] = useState("genres");
     const [selectedGenres, setSelectedGenres] = useState([]);
+    const [generatedNewRecs, setGeneratedNewRecs] = useState(false);
     const { currentUser } = useSelector(state => state.users);
-    const { genres, tempRecs } = useSelector(state => state.songs);
+    const { genres, tempRecs, topTenSongs } = useSelector(state => state.songs);
     const dispatch = useDispatch();
-    const LOGIN_TOOLTIP = "Log in to generate recommendations based on liked songs.";
 
-    useEffect(() => { // fetch genres if not already available
+    const LOGIN_TOOLTIP = "Log in to generate recommendations based on liked songs.";
+    const shouldShowPrevRecs = () => currentUser && (!generatedNewRecs && currentUser.recommendations.length > 0) || (generatedNewRecs && currentUser.recommendations.length > 1);
+
+    useEffect(() => { // fetch genres + topTen if not already available
         if (genres.length === 0) {
             dispatch(getGenresThunk());
+        }
+        if (topTenSongs.length === 0) {
+            dispatch(getTopTenSongsThunk());
         }
     }, []);
 
@@ -25,6 +37,7 @@ const Recs = () => {
         if (selectedGenres.length === 0) {
             alert('You must select at least one genre before recommendations can be generated.');
         } else {
+            setGeneratedNewRecs(true);
             if (currentUser) {
                 dispatch(getRecommendationsByGenresAndSaveThunk(selectedGenres));
             } else {
@@ -37,6 +50,7 @@ const Recs = () => {
         if (currentUser.likes.length === 0) {
             alert('You must like at least one song before recommendations can be generated based on likes.');
         } else {
+            setGeneratedNewRecs(true);
             // use five random tracks from the user's list of liked tracks to seed recs
             let seedTracks = [];
             if (currentUser.likes.length >= 5) {
@@ -107,7 +121,12 @@ const Recs = () => {
                         <span className="badge rounded-pill text-bg-info m-1" key={idx}>{genre}</span>
                     )}
 
-                    <select multiple className="form-select mt-1" onChange={e => handleSelectGenres(e)} disabled={selectedGenres.length >= 5}>
+                    <select 
+                      multiple 
+                      className="form-select mt-1" 
+                      onChange={e => handleSelectGenres(e)} 
+                      disabled={selectedGenres.length >= 5}
+                    >
                         {genres && genres.map((genre, idx) =>
                             <option value={genre} key={idx}>{genre}</option>
                         )}
@@ -121,17 +140,49 @@ const Recs = () => {
 
             {currentUser ? (
                 <div className="row mt-5">
-                    <h3>Recently Recommended Songs</h3>
-                    <div className="col">
-                        <ul className="list-group">
-                            {
-                                <RenderSongsList songs={currentUser.recommendations} />
-                            }
-                            <button type="button" className="list-group-item list-group-item-action" onClick={handleClearRecommendations}>
-                                Clear recommendation history
-                            </button>
-                        </ul>
-                    </div>
+                    {generatedNewRecs && currentUser.recommendations.length > 0 ? (
+                      <>
+                        <h3>Recommendations</h3>
+                        <div className="col">
+                            <ul className="list-group">
+                                <RenderSongsList songs={currentUser.recommendations.at(-1).songs} />
+                            </ul>
+                        </div>
+                      </>
+                    ) : (
+                        <p>Generate recommendations above to see them here!</p>
+                    )}
+                    {shouldShowPrevRecs() &&
+                    <>
+                        <h4>Previously Recommended</h4>
+                        <div className="col">
+                            <ul className="list-group">
+                                {generatedNewRecs ? (
+                                    currentUser.recommendations.slice(0,-1).reverse().map((recSet, idx) => 
+                                        <div key={idx}>
+                                            <div className="row">
+                                                {`Generated on ${recSet.timeStamp}`}
+                                            </div>
+                                            <RenderSongsList songs={recSet.songs}/>
+                                        </div>
+                                    )
+                                ) : (
+                                    [...currentUser.recommendations].reverse().map((recSet, idx) => 
+                                        <div key={idx}>
+                                            <div className="row">
+                                                {`Generated on ${recSet.timeStamp}`}
+                                            </div>
+                                            <RenderSongsList songs={recSet.songs}/>
+                                        </div>
+                                    )
+                                )}
+                                <button type="button" className="list-group-item list-group-item-action" onClick={handleClearRecommendations}>
+                                    Clear recommendation history
+                                </button>
+                            </ul>
+                        </div>
+                    </>
+                    }
                 </div>
             ) : (
                 <div className="row mt-5">
@@ -155,6 +206,24 @@ const Recs = () => {
                     }
                 </div>
             )}
+            
+            <h2>Top 10 Recommended Songs</h2>
+                <div className="row ms-4 me-2">
+                    <div className="col-10">
+                        <h6 className="font-weight-bold mb-1 mt-3">Track</h6>
+                    </div>
+                    <div className="col-2">
+                        <h6 className="font-weight-bold mb-1 text-center">Number of Recommendations</h6>
+                    </div>
+                </div>
+                <ol className="list-group list-group-numbered">
+                    {topTenSongs.map((song, idx) => 
+                        <li key={idx} className="list-group-item d-flex justify-content-between">
+                            <div className="ms-2 me-auto fw-bold">{song.title} - {song.artists[0].name}</div>
+                            <div className="me-5">{song.numberOfRecs}</div>
+                        </li>
+                    )}
+                </ol>
         </>
     )
 }

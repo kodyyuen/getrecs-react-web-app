@@ -45,7 +45,12 @@ export const findWhoRecentlyLiked = async (songID) => {
 export const getRecommendationsByLikedSongs = async (songs) => {
   const recs = await getRecommendationsBySongs(songs);
   if (recs.tracks) {
-    const response = await api.put(`${USER_API_URL}/update`, {recommendations: recs.tracks});
+    const response = await api.put(`${USER_API_URL}/appendToField`, {
+        recommendations: {
+            songs: recs.tracks, 
+            timeStamp: new Date().toLocaleString('en-US', { timeZone: 'EST' })
+        }
+    });
     return response.data;
   } else {
     console.log('error occured when fetching recs', recs);
@@ -55,7 +60,12 @@ export const getRecommendationsByLikedSongs = async (songs) => {
 export const getRecommendationsByGenresAndSave = async (genres) => {
   const recs = await getRecommendationsByGenres(genres);
   if (recs.tracks) {
-    const response = await api.put(`${USER_API_URL}/update`, {recommendations: recs.tracks});
+    const response = await api.put(`${USER_API_URL}/appendToField`, { 
+      recommendations: {
+        songs: recs.tracks, 
+        timeStamp: new Date().toLocaleString('en-US', { timeZone: 'EST' })
+      }
+    });
     return response.data;
   } else {
     console.log('error occured when fetching recs', recs);
