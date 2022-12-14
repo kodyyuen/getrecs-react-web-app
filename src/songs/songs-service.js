@@ -16,6 +16,9 @@ let API_TOKEN = null
 const SEARCH_TRACK_URL = "https://api.spotify.com/v1/tracks";
 const RECOMMENDATIONS_URL = "https://api.spotify.com/v1/recommendations";
 
+const api = axios.create({ withCredentials: true });
+const SONGS_API_URL = 'http://localhost:4000/songs';
+
 const getToken = async () => {
     try {
         //make post request to SPOTIFY API for access token, sending relavent info
@@ -83,6 +86,9 @@ export const getRecommendationsBySongs = async (songList) => {
     headers: { "Authorization": `Bearer ${API_TOKEN}` },
     params: query,
   });
+  if (response.data.tracks) {
+    await api.post(`${SONGS_API_URL}/createBatch`, response.data.tracks);
+  }
   return response.data;
 }
 
@@ -101,6 +107,9 @@ export const getRecommendationsByGenres = async (genres) => {
     headers: { "Authorization": `Bearer ${API_TOKEN}` },
     params: query,
   });
+  if (response.data.tracks) {
+    await api.post(`${SONGS_API_URL}/createBatch`, response.data.tracks);
+  }
   return response.data;
 }
 
@@ -112,5 +121,10 @@ export const getGenres = async () => {
   const response = await axios.get(`${RECOMMENDATIONS_URL}/available-genre-seeds`, {
     headers: { "Authorization": `Bearer ${API_TOKEN}` },
   });
+  return response.data;
+}
+
+export const getTopTenSongs = async () => {
+  const response = await api.get(`${SONGS_API_URL}/topTen`);
   return response.data;
 }

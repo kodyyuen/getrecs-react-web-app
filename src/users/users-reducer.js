@@ -45,13 +45,13 @@ const usersReducer = createSlice({
     [deleteUserThunk.fulfilled]: (state, action) => {
     },
     [getRecommendationsByLikedSongsThunk.fulfilled]: (state, action) => {
-      state.currentUser = action.payload;
+      state.currentUser = action.payload
     },
     [getRecommendationsByGenresAndSaveThunk.fulfilled]: (state, action) => {
-      state.currentUser = action.payload;
+      state.currentUser = action.payload
     },
     [deleteRecommendationsThunk.fulfilled]: (state, action) => {
-      state.currentUser = action.payload;
+      state.currentUser = action.payload
     }
   }
 })

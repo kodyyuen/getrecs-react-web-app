@@ -4,7 +4,8 @@ import {
   findSongBySearchTerm,
   findSongBySongID,
   getGenres,
-  getRecommendationsByGenres
+  getRecommendationsByGenres,
+  getTopTenSongs
 } from "./songs-service";
 
 export const findSongBySearchTermThunk = createAsyncThunk(
@@ -31,4 +32,9 @@ export const getGenresThunk = createAsyncThunk(
 export const getRecommendationsByGenresThunk = createAsyncThunk(
   "getRecommendationsByGenres",
   async (genres) => await getRecommendationsByGenres(genres)
+)
+
+export const getTopTenSongsThunk = createAsyncThunk(
+  "getTopTenSongs",
+  async () => await getTopTenSongs()
 )
