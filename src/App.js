@@ -17,6 +17,7 @@ import usersReducer from './users/users-reducer';
 import songsReducer from './songs/songs-reducer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
+import Users from './users';
 
 const store = configureStore({
     reducer: {
@@ -36,6 +37,7 @@ function App() {
                             <Route index element={<Recs />} />
                             <Route path="/search" element={<SongsSearch />} />
                             <Route path="/login" element={<Login />} />
+                            <Route path="/users" element={<Users />} />
                             <Route path="/register" element={<Register />} />
                             <Route path="/profile" element={
                                 <ProtectedRoute>

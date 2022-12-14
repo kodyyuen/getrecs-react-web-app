@@ -9,6 +9,8 @@ import {
   getRecommendationsByLikedSongsThunk,
   getRecommendationsByGenresAndSaveThunk,
   deleteRecommendationsThunk,
+  findAllUsersThunk,
+  deleteUserThunk,
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -16,10 +18,14 @@ const usersReducer = createSlice({
   initialState: {
     currentUser: null,
     publicProfile: null,
+    users: []
   },
   extraReducers: {
     [findUserByIdThunk.fulfilled]: (state, action) => {
       state.publicProfile = action.payload
+    },
+    [findAllUsersThunk.fulfilled]: (state, action) => {
+      state.users = action.payload;
     },
     [logoutThunk.fulfilled]: (state, action) => {
       state.currentUser = null
@@ -35,6 +41,8 @@ const usersReducer = createSlice({
     },
     [updateUserThunk.fulfilled]: (state, action) => {
       state.currentUser = {...action.payload};
+    },
+    [deleteUserThunk.fulfilled]: (state, action) => {
     },
     [getRecommendationsByLikedSongsThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;

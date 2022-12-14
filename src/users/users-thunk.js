@@ -9,7 +9,9 @@ import {
   updateUser,
   getRecommendationsByLikedSongs,
   getRecommendationsByGenresAndSave,
-  deleteRecommendations
+  deleteRecommendations,
+  findAllUsers,
+  deleteUser
 } from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
@@ -27,6 +29,11 @@ export const findUserByIdThunk = createAsyncThunk(
   async (uid) => await findUserById(uid)
 )
 
+export const findAllUsersThunk = createAsyncThunk(
+  'findAllUsers',
+  async () => await findAllUsers()
+)
+
 export const loginThunk = createAsyncThunk(
   'login',
   async (user) => await login(user)
@@ -40,6 +47,11 @@ export const registerThunk = createAsyncThunk(
 export const updateUserThunk = createAsyncThunk(
   'updateUser',
   async (updates) => await updateUser(updates)
+)
+
+export const deleteUserThunk = createAsyncThunk(
+  'deleteUser',
+  async (uid) => await deleteUser(uid)
 )
 
 export const findWhoRecentlyLikedThunk = createAsyncThunk(

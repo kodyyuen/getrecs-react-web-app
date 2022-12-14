@@ -21,11 +21,18 @@ const Profile = () => {
 
   return (
     <>
-      <h1>Private Profile</h1>
+      <h3>Private Profile</h3>
       {
-        currentUser &&
-        <h2>Welcome new user: {currentUser.username}</h2>
+        <>
+        <h1>{currentUser.username}</h1>
+        <h4>{`${currentUser.likes.length} ${currentUser.likes.length === 1 ? "like" : "likes"}`} | {currentUser.recommendations.length / 20} recs</h4>
+        </>
       }
+      <button
+        className="btn btn-danger"
+        onClick={handleLogoutBtn}>
+        Logout
+      </button>
       <div className="row">
         <label for="name">Name (Optional)</label>
         <input id="name"
@@ -37,11 +44,6 @@ const Profile = () => {
       {
         currentUser && <RenderSongsList songs={currentUser.likesData} />
       }
-      <button
-        className="btn btn-danger"
-        onClick={handleLogoutBtn}>
-        Logout
-      </button>
     </>
   )
 }

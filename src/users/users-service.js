@@ -12,6 +12,11 @@ export const findUserById = async (uid) => {
   return user;
 }
 
+export const findAllUsers = async () => {
+  const response = await axios.get(USER_API_URL)
+  return response.data
+}
+
 export const register = async (user) => {
   const response = await api.post(`${BASE_API_URL}/register`, user);
   const newUser = response.data;
@@ -69,7 +74,7 @@ export const deleteRecommendations = async () => {
   return response.data;
 }
 
-const deleteUser = async (uid) => { 
-  const response = await api.delete(`${BASE_API_URL}/deleteUser/${uid}`);
+export const deleteUser = async (uid) => { 
+  const response = await api.delete(`${USER_API_URL}/deleteUser/${uid}`);
   return response.data;
 }
