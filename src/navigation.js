@@ -8,11 +8,11 @@ const Navigation = () => {
   const parts = pathname.split('/')
   return (
     <>
-      <nav className="navbar navbar-expand d-none d-lg-block navbar-light bg-light">
+      <nav className="navbar navbar-expand d-none d-md-block navbar-light bg-light mb-2">
         <div className="container-fluid">
           <a className="navbar-brand">GetRecs</a>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav me-auto mb-lg-0">
               <li className="nav-item">
                 <Link to="/"
                   className={`nav-link ${parts[1] === '' ? 'active text-primary' : ''}`}>
@@ -70,7 +70,7 @@ const Navigation = () => {
           </div>
         </div>
       </nav>
-      <nav className="navbar navbar-expand d-xs-block d-lg-none navbar-light bg-light">
+      <nav className="navbar navbar-expand d-xs-block d-md-none navbar-light bg-light">
         <div className="container-fluid">
           <a className="navbar-brand">GetRecs</a>
           <div class="dropdown">
