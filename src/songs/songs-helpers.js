@@ -11,7 +11,8 @@ export const getArtistName = (song) => {
 }
 
 export const getArtistLink = (song) => {
-    return song.artists[0].href;
+    const externalArtistLink = "https://open.spotify.com/artist/"
+    return externalArtistLink + song.artists[0].id;
 }
 
 export const getAlbumName = (song) => {
