@@ -150,7 +150,7 @@ const Recs = () => {
           )}
           {shouldShowPrevRecs() &&
             <>
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between mt-5">
                 <h4>Previously Recommended</h4>
                 <div>
                   <button type="button" className="btn btn-sm btn-outline-primary me-2" onClick={() => setHideRecs(!hideRecs)}>

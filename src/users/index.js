@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 
 const Users = () => {
     const { users } = useSelector((state) => state.users)
+
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(findAllUsersThunk())
-    }, [users])
+      dispatch(findAllUsersThunk())
+    }, [])
     const handleDeleteUser = (uid) => {
         dispatch(deleteUserThunk(uid))
+        dispatch(findAllUsersThunk());
     }
     return (
         <>
