@@ -6,6 +6,7 @@ const Navigation = () => {
   const { currentUser } = useSelector((state) => state.users)
   const { pathname } = useLocation()
   const parts = pathname.split('/')
+
   return (
     <>
       <nav className="navbar navbar-expand d-none d-md-block navbar-light bg-light mb-2">
@@ -62,8 +63,9 @@ const Navigation = () => {
             {
               currentUser &&
               <li className="d-flex">
-                <Link to="/profile" className="text-dark">
-                  Welcome, {currentUser.username}
+                Logged in as
+                <Link to="/profile" className="text-dark ms-1">
+                  {currentUser.name.length > 0 ? currentUser.name : currentUser.username}
                 </Link>
               </li>
             }
@@ -109,7 +111,7 @@ const Navigation = () => {
                     className={`dropdown-item ${parts[1] === 'profile'
                       && parts.length == 3
                       && parts[2] === currentUser._id ? 'active' : ''}`}>
-                    Profile
+                    Public Profile
                   </Link>
                 </li>
               }
@@ -126,7 +128,7 @@ const Navigation = () => {
                 currentUser &&
                 <li>
                   <Link to="/profile" className="dropdown-item text-dark">
-                    Welcome, {currentUser.username}
+                    Private Profile
                   </Link>
                 </li>
               }

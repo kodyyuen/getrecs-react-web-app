@@ -75,7 +75,7 @@ const Recs = () => {
         <>
             <Tooltip anchorId="by-likes-disabled" place="top" />
 
-            <h1>GetRecs!</h1>
+            <h1 className="text-center mb-5 mt-4">GetRecs!</h1>
 
             <div className="btn-group" role="group">
                 <input
@@ -146,7 +146,9 @@ const Recs = () => {
                             </div>
                         </>
                     ) : (
+                      <div className="mb-4">
                         <p>Generate recommendations above to see them here!</p>
+                      </div>
                     )}
                     {shouldShowPrevRecs() &&
                         <>
@@ -196,9 +198,9 @@ const Recs = () => {
                         </>
                     }
                     {tempRecs.length === 0 &&
-                        <>
+                        <div className="mb-2">
                             <p>Generate recommendations above to see them here!</p>
-                        </>
+                        </div>
                     }
                 </div>
             )}
@@ -209,7 +211,7 @@ const Recs = () => {
                     <h6 className="font-weight-bold mb-1 mt-3">Track</h6>
                 </div>
                 <div className="col">
-                    <h6 className="font-weight-bold mb-1 text-center">Number of Recommendations</h6>
+                    <h6 className="font-weight-bold mb-1 mt-3 text-end"># of Recs</h6>
                 </div>
             </div>
             <ol className="list-group list-group-numbered">
