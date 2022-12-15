@@ -88,3 +88,10 @@ export const deleteUser = async (uid) => {
   const response = await api.delete(`${USER_API_URL}/deleteUser/${uid}`);
   return response.data;
 }
+
+export const deleteRecSet = async (timeStamp) => {
+  const response = await api.put(`${USER_API_URL}/removeRec`, {
+    timeStamp: timeStamp
+  });
+  return response.data;
+}

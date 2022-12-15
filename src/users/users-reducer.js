@@ -11,6 +11,7 @@ import {
   deleteRecommendationsThunk,
   findAllUsersThunk,
   deleteUserThunk,
+  deleteRecSetThunk,
 } from "./users-thunk";
 
 const usersReducer = createSlice({
@@ -51,6 +52,9 @@ const usersReducer = createSlice({
       state.currentUser = action.payload
     },
     [deleteRecommendationsThunk.fulfilled]: (state, action) => {
+      state.currentUser = action.payload
+    },
+    [deleteRecSetThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload
     }
   }

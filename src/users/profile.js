@@ -1,14 +1,16 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk, updateUserThunk } from "./users-thunk";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
-import { findMultipleSongsBySongIDThunk } from "../songs/songs-thunks";
 import { RenderSongsList } from "../songs/songs-list";
+import RecSet from "../recs/rec-set";
 
 const Profile = () => {
   const navigate = useNavigate()
   const { currentUser } = useSelector((state) => state.users)
   const dispatch = useDispatch()
+  const [hideLikes, setHideLikes] = useState(false);
+  const [hideRecs, setHideRecs] = useState(false);
 
   const handleLogoutBtn = () => {
     dispatch(logoutThunk())
@@ -41,8 +43,38 @@ const Profile = () => {
           placeholder="Your name"
           value={currentUser.name} />
       </div>
-      {
-        currentUser && <RenderSongsList songs={currentUser.likesData} />
+      {currentUser && 
+        <>
+          <div className="d-flex justify-content-between">
+            <h2>Likes</h2>
+            <div>
+              <button type="button" className="btn btn-sm btn-primary me-2" onClick={() => setHideLikes(!hideLikes)}>
+                {hideLikes
+                  ? <i className="fa-solid fa-eye"></i>
+                  : <i className="fa-solid fa-eye-slash"></i>
+                }
+              </button>
+            </div>
+          </div>
+          {!hideLikes && <RenderSongsList songs={currentUser.likesData} />}
+
+          <div className="d-flex justify-content-between mt-5">
+            <h2>Recommendations</h2>
+            <div>
+              <button type="button" className="btn btn-sm btn-primary me-2" onClick={() => setHideRecs(!hideRecs)}>
+                {hideRecs
+                  ? <i className="fa-solid fa-eye"></i>
+                  : <i className="fa-solid fa-eye-slash"></i>
+                }
+              </button>
+            </div>
+          </div>
+          {!hideRecs && 
+            [...currentUser.recommendations].reverse().map((recSet, idx) => 
+              <RecSet rec={recSet} key={idx} />
+            )
+          }
+        </>
       }
     </>
   )

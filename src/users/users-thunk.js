@@ -11,7 +11,8 @@ import {
   getRecommendationsByGenresAndSave,
   deleteRecommendations,
   findAllUsers,
-  deleteUser
+  deleteUser,
+  deleteRecSet
 } from "./users-service";
 
 export const logoutThunk = createAsyncThunk(
@@ -73,4 +74,9 @@ export const getRecommendationsByGenresAndSaveThunk = createAsyncThunk(
 export const deleteRecommendationsThunk = createAsyncThunk(
   'deleteRecommendations',
   async () => await deleteRecommendations()
+)
+
+export const deleteRecSetThunk = createAsyncThunk(
+  'deleteRecSet',
+  async (timestamp) => await deleteRecSet(timestamp)
 )
