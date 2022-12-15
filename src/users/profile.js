@@ -23,19 +23,22 @@ const Profile = () => {
 
   return (
     <>
-      <h3>Private Profile</h3>
-      {
-        <>
-        <h1>{currentUser.username}</h1>
-        <h4>{`${currentUser.likes.length} ${currentUser.likes.length === 1 ? "like" : "likes"}`} | {currentUser.recommendations.length} recs</h4>
-        </>
-      }
+    <div className="row">
+      <h3 className='col'>Private Profile</h3>
       <button
-        className="btn btn-danger"
+        className="btn btn-danger col-3 me-2"
         onClick={handleLogoutBtn}>
         Logout
       </button>
-      <div className="row">
+
+    </div>
+      {
+        <>
+        <h1>{currentUser.username}</h1>
+        <h4>{`${currentUser.likes.length} liked ${currentUser.likes.length === 1 ? "song" : "songs"}`} &#x2022; {`${currentUser.recommendations.length} ${currentUser.recommendations.length === 1 ? "rec" : "recs"}`}</h4>
+        </>
+      }
+      <div className="row mt-3 mb-5">
         <label for="name">Name (Optional)</label>
         <input id="name"
           onChange={(e) => handleUpdateName(e.target.value)}
