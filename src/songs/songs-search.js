@@ -15,18 +15,19 @@ const SongsSearch = () => {
     }, [])
 
     return (
-        <>
+        <div className="container p-1 me-1">
+
             <h1>Search</h1>
-            <div className="row mb-5">
+            <div className="input-group mb-5">
                 <input
-                    className="form-control w-75"
+                    className="form-control"
                     onChange={(e) => {
                         setSearchTerm(e.target.value)
                     }}
                     value={searchTerm}
                     placeholder="Search for a track" />
                 <button
-                    className="btn btn-primary w-25"
+                    className="btn btn-primary"
                     onClick={() => {
                         dispatch(findSongBySearchTermThunk(searchTerm))
                     }}>Search
@@ -35,7 +36,8 @@ const SongsSearch = () => {
             {
                 songs && <RenderSongsList songs={songs} />
             }
-        </>
+        </div>
+
     )
 }
 

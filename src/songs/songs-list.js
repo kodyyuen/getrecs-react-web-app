@@ -7,13 +7,13 @@ export const RenderSongsList = ({ songs }) => {
             <div className="col-1">
                 <h5 className="font-weight-bold mb-1">#</h5>
             </div>
-            <div className="col-7">
+            <div className="col col-6-sm col-md-7">
                 <h5 className="font-weight-bold mb-1">Title</h5>
             </div>
-            <div className="col-3">
+            <div className="d-none d-sm-block col-3">
                 <h5 className="font-weight-bold mb-1">Album</h5>
             </div>
-            <div className="col-1">
+            <div className="d-none d-sm-block col-sm-2 col-md-1">
                 <h5 className="font-weight-bold mb-1">Time</h5>
             </div>
             <ul className="list-group pe-0">
@@ -22,22 +22,22 @@ export const RenderSongsList = ({ songs }) => {
                         <li key={song.id} className="list-group-item p-2">
                             <div className="row d-flex align-items-center">
                                 <div className="col-1 ps-3">{idx + 1}</div>
-                                <div className="col-2">
+                                <div className="col col-sm-2">
                                     <a className="" href={getSongLink(song)} target="_blank" rel="noreferrer"><img src={getImage(song)} className="img-fluid" alt="song art" /></a>
                                 </div>
-                                <div className="col-5">
+                                <div className="col col-sm-4 col-md-5">
                                     <Link to={`/details/${getSongID(song)}`}>
                                         <h5>
                                             {getSongName(song)} - {getArtistName(song)}
                                         </h5>
                                     </Link>
                                 </div>
-                                <div className="col-3">
+                                <div className="d-none d-sm-block col-sm-3">
                                     <h5 className="text-muted">
                                         {getAlbumName(song)}
                                     </h5>
                                 </div>
-                                <div className="col-1">{getDuration(song)}</div>
+                                <div className="d-none d-sm-block col-sm-2 col-md-1">{getDuration(song)}</div>
                             </div>
                         </li>
                     )

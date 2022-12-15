@@ -16,6 +16,7 @@ import ProtectedRoute from './users/protected-route';
 import usersReducer from './users/users-reducer';
 import songsReducer from './songs/songs-reducer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import '@fortawesome/fontawesome-free/css/all.css';
 import Users from './users';
 
@@ -28,7 +29,7 @@ const store = configureStore({
 
 function App() {
     return (
-        <div className="container mt-4 mb-4">
+        <div className="container mt-3 mb-3">
             <Provider store={store}>
                 <BrowserRouter>
                     <CurrentUser>

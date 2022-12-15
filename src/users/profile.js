@@ -27,7 +27,7 @@ const Profile = () => {
       {
         <>
         <h1>{currentUser.username}</h1>
-        <h4>{`${currentUser.likes.length} ${currentUser.likes.length === 1 ? "like" : "likes"}`} | {currentUser.recommendations.length / 20} recs</h4>
+        <h4>{`${currentUser.likes.length} ${currentUser.likes.length === 1 ? "like" : "likes"}`} | {currentUser.recommendations.length} recs</h4>
         </>
       }
       <button
