@@ -8,7 +8,7 @@ const Users = () => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-      dispatch(findAllUsersThunk())
+        dispatch(findAllUsersThunk())
     }, [])
     const handleDeleteUser = (uid) => {
         dispatch(deleteUserThunk(uid))
@@ -20,12 +20,14 @@ const Users = () => {
             <div className="list-group">
                 {
                     users.map((user) =>
-                        <div className="list-group-item row d-flex align-items-center" key={user._id} >
+                        <div className="list-group-item row d-flex align-items-center" key={user._id}>
                             <Link to={`/profile/${user._id}`} className="col-10">
                                 {user.username}
                             </Link>
-                            <button className="btn btn-danger float-end col-2"
-                                onClick={() => handleDeleteUser(user._id)}>Delete User</button>
+                            <div className="col-2">
+                                <button className="btn btn-danger float-end"
+                                    onClick={() => handleDeleteUser(user._id)}>Delete User</button>
+                            </div>
                         </div>
                     )
                 }
