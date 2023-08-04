@@ -5,6 +5,7 @@ import LogOutButton from "./users/logout-button";
 
 const Navigation = () => {
   const { currentUser } = useSelector((state) => state.users);
+  const { spotifyProfile } = useSelector((state) => state.spotify);
   const { pathname } = useLocation();
   const parts = pathname.split("/");
 
@@ -32,7 +33,7 @@ const Navigation = () => {
                   Search
                 </Link>
               </li>
-              <li className={`nav-item ${currentUser ? "d-none" : ""}`}>
+              <li className={`nav-item ${currentUser || Object.keys(spotifyProfile).length > 0 ? "d-none" : ""}`}>
                 <Link
                   to="/login"
                   className={`nav-link ${
@@ -42,7 +43,7 @@ const Navigation = () => {
                   Login
                 </Link>
               </li>
-              <li className={`nav-item ${currentUser ? "d-none" : ""}`}>
+              <li className={`nav-item ${currentUser || Object.keys(spotifyProfile).length > 0 ? "d-none" : ""}`}>
                 <Link
                   to="/register"
                   className={`nav-link ${
@@ -52,13 +53,24 @@ const Navigation = () => {
                   Register
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/spotify"
+                  className={`navbar-brand nav-link ${
+                    parts[1] === "spotify" ? "active text-primary" : ""
+                  }`}
+                >
+                  Spotify Profile
+                  {spotifyProfile.display_name}
+                </Link>
+              </li>
               {currentUser && (
                 <li className="nav-item">
                   <Link
                     to={`/profile/${currentUser._id}`}
                     className={`nav-link ${
                       parts[1] === "profile" &&
-                      parts.length == 3 &&
+                      parts.length === 3 &&
                       parts[2] === currentUser._id
                         ? "active text-primary"
                         : ""
@@ -120,6 +132,7 @@ const Navigation = () => {
           </div>
         </div>
       </nav>
+      
       <nav className="navbar navbar-expand d-xs-block d-md-none navbar-light bg-light">
         <div className="container-fluid">
           <Link
@@ -177,7 +190,7 @@ const Navigation = () => {
                     to={`/profile/${currentUser._id}`}
                     className={`dropdown-item ${
                       parts[1] === "profile" &&
-                      parts.length == 3 &&
+                      parts.length === 3 &&
                       parts[2] === currentUser._id
                         ? "active"
                         : ""
@@ -206,6 +219,12 @@ const Navigation = () => {
                   <Link to="/profile" className="dropdown-item text-dark">
                     Private Profile
                   </Link>
+                </li>
+              )}
+              <li className={` ${currentUser ? "dropdown-divider" : ""}`} />
+              {currentUser && (
+                <li>
+                  <LogOutButton />
                 </li>
               )}
             </ul>

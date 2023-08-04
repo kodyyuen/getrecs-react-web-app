@@ -1,16 +1,7 @@
-/*
-TODO:
-- Change client secret to environment variable
-*/
-
 import axios from 'axios'
 import { Buffer } from 'buffer';
 
-// const client_id = '9534d135519d4b049b481e8bc6862e40'; // Your client id
-// const client_secret = '958d137cb4e44d4b9eca6ad5333bf62e'; // Your secret
-const client_id = '12bcf5b121be408ebd5d58e851ec42df'
-const client_secret = 'c9a51eeec58d4bfb9d6d2311276026bb'
-const auth_token = Buffer.from(`${client_id}:${client_secret}`, 'utf-8').toString('base64');
+const auth_token = Buffer.from(`${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`, 'utf-8').toString('base64');
 
 let API_TOKEN = null
 const SEARCH_TRACK_URL = "https://api.spotify.com/v1/tracks";

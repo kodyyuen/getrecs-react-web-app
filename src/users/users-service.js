@@ -32,6 +32,7 @@ export const logout = async () => {
   const response = await api.post(`${BASE_API_URL}/logout`);
   return response.data;
 }
+
 export const profile = async () => {
   const response = await api.post(`${BASE_API_URL}/profile`);
   return response.data;
