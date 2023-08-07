@@ -3,6 +3,7 @@ import {
   getSpotifyLongTopSongsThunk,
   getSpotifyMediumTopSongsThunk,
   getSpotifyProfileThunk,
+  getSpotifyRecsThunk,
   getSpotifyShortTopSongsThunk,
   spotifyLogoutThunk,
 } from "./spotify-thunks";
@@ -13,6 +14,9 @@ const initialState = {
   shortTopSongs: [],
   mediumTopSongs: [],
   longTopSongs: [],
+  shortRecs: [],
+  mediumRecs: [],
+  topRecs: [],
 };
 
 const spotifyReducer = createSlice({
@@ -34,6 +38,10 @@ const spotifyReducer = createSlice({
     [getSpotifyLongTopSongsThunk.fulfilled]: (state, action) => {
       state.longTopSongs = action.payload;
     },
+    [getSpotifyRecsThunk.fulfilled]: (state, action) => {
+      console.log(action.payload)
+      state.shortRecs = action.payload;
+    }
   },
 });
 

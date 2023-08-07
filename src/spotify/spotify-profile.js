@@ -5,17 +5,19 @@ import {
   getSpotifyLongTopSongsThunk,
   getSpotifyMediumTopSongsThunk,
   getSpotifyProfileThunk,
+  getSpotifyRecsThunk,
   getSpotifyShortTopSongsThunk,
 } from "./spotify-thunks";
 import SpotifyLogout from "./spotify-logout";
 import { RenderSongsList } from "../songs/songs-list";
 
 const SpotifyProfile = () => {
-  const { spotifyProfile, shortTopSongs, mediumTopSongs, longTopSongs } =
+  const { spotifyProfile, shortTopSongs, mediumTopSongs, longTopSongs, shortRecs } =
     useSelector((state) => state.spotify);
 
   const [songsTime, setSongsTime] = useState("short");
   const dispatch = useDispatch();
+  const [shortSeeds, setShortSeeds] = useState([]);
 
   // useEffect(() => {
   //   dispatch(getSpotifyProfileThunk());
@@ -23,6 +25,19 @@ const SpotifyProfile = () => {
   //   // console.log('here')
   //   // console.log(spotifyProfile);
   // }, []);
+  useEffect(() => {
+    if (shortTopSongs.length !== 0) {
+      setShortSeeds(shortTopSongs.slice(0, 5).map(song => song.id));
+    }
+    // console.log(shortSeeds)
+    console.log(shortRecs)
+    // let test = shortTopSongs.splice(0, 5).map(song => song.id)
+    // console.log(test)
+  }, [])
+
+  const handleGenerateRecs = () => {
+    dispatch(getSpotifyRecsThunk({seeds: shortSeeds}));
+  }
 
   return (
     <>
@@ -74,8 +89,10 @@ const SpotifyProfile = () => {
         </label>
       </div>
       <div>
-        <button>Generate Recommendations</button>
+        <button className="btn btn-primary" onClick={() => handleGenerateRecs()}>Generate Recommendations</button>
       </div>
+      {/* <div>{shortRecs}</div> */}
+      {shortRecs.tracks.length > 0 && <RenderSongsList songs={shortRecs.tracks}/>}
       {songsTime === "short" && <RenderSongsList songs={shortTopSongs} />}
       {songsTime === "medium" && <RenderSongsList songs={mediumTopSongs} />}
       {songsTime === "long" && <RenderSongsList songs={longTopSongs} />}

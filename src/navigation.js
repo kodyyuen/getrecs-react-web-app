@@ -60,7 +60,6 @@ const Navigation = () => {
                     parts[1] === "spotify" ? "active text-primary" : ""
                   }`}
                 >
-                  Spotify Profile
                   {spotifyProfile.display_name}
                 </Link>
               </li>

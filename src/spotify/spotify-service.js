@@ -30,3 +30,8 @@ export const getSpotifyLongTopSongs = async () => {
   const response = await api.get(`${SPOTIFY_API_URL}/topsongs/long`);
   return response.data;
 }
+
+export const getSpotifyRecs = async (seeds) => {
+  const response = await api.post(`${SPOTIFY_API_URL}/recs`, seeds);
+  return response.data;
+}
