@@ -35,3 +35,8 @@ export const getSpotifyRecs = async (seeds) => {
   const response = await api.post(`${SPOTIFY_API_URL}/recs`, seeds);
   return response.data;
 }
+
+export const addRecsToPlaylist = async (params) => {
+  const response = await api.post(`${SPOTIFY_API_URL}/recs/playlist`, params);
+  return response.data;
+}

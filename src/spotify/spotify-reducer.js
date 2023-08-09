@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  addRecsToPlaylistThunk,
   getSpotifyLongTopSongsThunk,
   getSpotifyMediumTopSongsThunk,
   getSpotifyProfileThunk,
@@ -39,8 +40,11 @@ const spotifyReducer = createSlice({
       state.longTopSongs = action.payload;
     },
     [getSpotifyRecsThunk.fulfilled]: (state, action) => {
-      console.log(action.payload)
+      console.log("shortRecs: " + action.payload)
       state.shortRecs = action.payload;
+    },
+    [addRecsToPlaylistThunk.fulfilled]: (state, action) => {
+      console.log('nuts')
     }
   },
 });
