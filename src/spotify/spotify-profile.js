@@ -23,18 +23,22 @@ const SpotifyProfile = () => {
 
   const [songsTime, setSongsTime] = useState("short");
   const dispatch = useDispatch();
-  const [shortSeeds, setShortSeeds] = useState([]);
 
-  const handleGenerateRecs = () => {
-    if (shortTopSongs.length !== 0) {
-      const seeds = shortTopSongs.slice(0, 5).map((song) => song.id);
-      setShortSeeds(seeds);
+  const timeSeeds = {
+    short: shortTopSongs,
+    medium: mediumTopSongs,
+    long: longTopSongs,
+  };
+
+  const handleGenerateRecs = (time) => {
+    if (timeSeeds[time].length !== 0) {
+      const seeds = timeSeeds[time].slice(0, 5).map((song) => song.id);
       dispatch(getSpotifyRecsThunk({ seeds: seeds }));
     }
   };
 
   const handleAddToPlaylist = () => {
-    console.log(spotifyProfile.id)
+    console.log(spotifyProfile.id);
     const params = {
       user_id: spotifyProfile.id,
       body: {
@@ -42,14 +46,16 @@ const SpotifyProfile = () => {
         public: false,
       },
       uris: {
-        uris: shortRecs.map(s => s.uri)
-      }
-    }
-    dispatch(addRecsToPlaylistThunk({params: params}));
-  }
+        uris: shortRecs.map((s) => s.uri),
+      },
+    };
+    dispatch(addRecsToPlaylistThunk({ params: params }));
+  };
 
   return (
     <>
+    <div className="d-flex justify-content-center">
+
       <div className="btn-group" role="group">
         <input
           type="radio"
@@ -97,20 +103,23 @@ const SpotifyProfile = () => {
           All Time
         </label>
       </div>
+    </div>
+
       <div>
         <button
           className="btn btn-primary"
-          onClick={() => handleGenerateRecs()}
+          onClick={() => handleGenerateRecs(songsTime)}
         >
           Generate Recommendations
         </button>
-        <button className="btn btn-primary" onClick={() => handleAddToPlaylist()}>
+        <button
+          className="btn btn-primary"
+          onClick={() => handleAddToPlaylist()}
+        >
           Add to Playlist
         </button>
       </div>
-      {shortRecs.length > 0 && (
-        <RenderSongsList songs={shortRecs} />
-      )}
+      {shortRecs.length > 0 && <RenderSongsList songs={shortRecs} />}
       {songsTime === "short" && <RenderSongsList songs={shortTopSongs} />}
       {songsTime === "medium" && <RenderSongsList songs={mediumTopSongs} />}
       {songsTime === "long" && <RenderSongsList songs={longTopSongs} />}
