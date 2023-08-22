@@ -34,7 +34,7 @@ const Profile = () => {
         </>
       }
       <div className="row mt-3 mb-5">
-        <label for="name">Name (Optional)</label>
+        <label htmlFor="name">Name (Optional)</label>
         <input
           id="name"
           onChange={(e) => handleUpdateName(e.target.value)}

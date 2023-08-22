@@ -16,7 +16,7 @@ const SpotifyLogin = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getSpotifyProfileThunk());
+    // dispatch(getSpotifyProfileThunk());
   }, []);
 
   return (

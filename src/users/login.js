@@ -26,7 +26,7 @@ const Login = () => {
   return (
     <>
       {/* Medium - XLarge screen size */}
-      <div class="d-flex flex-column align-items-center d-none d-md-block">
+      <div className="d-flex flex-column align-items-center d-none d-md-block">
         <h1 className="text-center mt-2 mb-4">Login</h1>
         <form
           className="mb-5"
@@ -55,7 +55,7 @@ const Login = () => {
       </div>
 
       {/* XSmall - Small screen size */}
-      <div class="flex-column align-items-center d-sm-block d-md-none">
+      <div className="flex-column align-items-center d-sm-block d-md-none">
         <h1 className="text-center mt-2 mb-4">Login</h1>
         <form
           className="mb-5"

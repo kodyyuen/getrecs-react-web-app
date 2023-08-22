@@ -6,7 +6,6 @@ import { getSpotifyLongTopSongsThunk, getSpotifyMediumTopSongsThunk, getSpotifyP
 const CurrentUser = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(profileThunk())
     dispatch(getSpotifyProfileThunk())
     dispatch(getSpotifyShortTopSongsThunk());
     dispatch(getSpotifyMediumTopSongsThunk());

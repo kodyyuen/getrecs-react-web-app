@@ -99,9 +99,9 @@ const Navigation = () => {
             {currentUser && (
               <li className="d-flex">
                 {/* Logged in as */}
-                <div class="dropdown">
+                <div className="dropdown">
                   <div
-                    class="btn btn-primary"
+                    className="btn btn-primary"
                     type="button"
                     id="dropdownMenuButton1"
                     data-bs-toggle="dropdown"
@@ -112,7 +112,7 @@ const Navigation = () => {
                       : currentUser.username}
                   </div>
                   <ul
-                    class="dropdown-menu"
+                    className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton1"
                   >
                     <li>
@@ -120,7 +120,7 @@ const Navigation = () => {
                         Private Profile
                       </Link>
                     </li>
-                    <li class="dropdown-divider" />
+                    <li className="dropdown-divider" />
                     <li>
                       <LogOutButton />
                     </li>
@@ -142,9 +142,9 @@ const Navigation = () => {
           >
             GetRecs
           </Link>
-          <div class="dropdown">
+          <div className="dropdown">
             <button
-              class="btn btn-secondary dropdown-toggle"
+              className="btn btn-secondary dropdown-toggle"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
@@ -152,7 +152,7 @@ const Navigation = () => {
             >
               Menu
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
                 <Link
                   to="/search"
