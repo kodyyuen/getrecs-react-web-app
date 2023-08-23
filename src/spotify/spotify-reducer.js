@@ -15,9 +15,8 @@ const initialState = {
   shortTopSongs: [],
   mediumTopSongs: [],
   longTopSongs: [],
-  shortRecs: [],
-  mediumRecs: [],
-  topRecs: [],
+  recs: [],
+  recsPlaylistURL: "",
 };
 
 const spotifyReducer = createSlice({
@@ -40,10 +39,11 @@ const spotifyReducer = createSlice({
       state.longTopSongs = action.payload;
     },
     [getSpotifyRecsThunk.fulfilled]: (state, action) => {
-      console.log("shortRecs: " + action.payload)
-      state.shortRecs = action.payload;
+      state.recs = action.payload;
+      state.recsPlaylistURL = "";
     },
     [addRecsToPlaylistThunk.fulfilled]: (state, action) => {
+      state.recsPlaylistURL = action.payload;
       console.log('nuts')
     }
   },
