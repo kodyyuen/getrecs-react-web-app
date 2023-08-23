@@ -20,7 +20,8 @@ const SpotifyProfile = () => {
     mediumTopSongs,
     longTopSongs,
     recs,
-    recsPlaylistURL
+    recsPlaylistURL,
+    recsLoading,
   } = useSelector((state) => state.spotify);
 
   const [songsTime, setSongsTime] = useState("short");
@@ -40,12 +41,12 @@ const SpotifyProfile = () => {
   };
 
   const handleAddToPlaylist = () => {
-    console.log(spotifyProfile.id);
     const params = {
       user_id: spotifyProfile.id,
       body: {
         name: "GetRecs Playlist",
         public: false,
+        description: `Generated on ${new Date().toLocaleString("en-US")}`,
       },
       uris: {
         uris: recs.map((s) => s.uri),
@@ -105,7 +106,7 @@ const SpotifyProfile = () => {
           </label>
         </div>
       </div>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center mt-2">
         <button
           className="btn btn-primary"
           onClick={() => handleGenerateRecs(songsTime)}
@@ -122,7 +123,14 @@ const SpotifyProfile = () => {
         </button>
       </div> */}
       {/* {recs.length > 0 && <RenderSongsList songs={recs} />} */}
-      {recs.length > 0 && <SpotifyRecs songs={recs} handleAddToPlaylist={handleAddToPlaylist} url={recsPlaylistURL} />}
+      {recs.length > 0 && (
+        <SpotifyRecs
+          songs={recs}
+          handleAddToPlaylist={handleAddToPlaylist}
+          url={recsPlaylistURL}
+          recsLoading={recsLoading}
+        />
+      )}
       {songsTime === "short" && <RenderSongsList songs={shortTopSongs} />}
       {songsTime === "medium" && <RenderSongsList songs={mediumTopSongs} />}
       {songsTime === "long" && <RenderSongsList songs={longTopSongs} />}

@@ -1,7 +1,7 @@
 import { RenderSongsList } from "../songs/songs-list";
 import { useState } from "react";
 
-const SpotifyRecs = ({ songs, handleAddToPlaylist, url }) => {
+const SpotifyRecs = ({ songs, handleAddToPlaylist, url, recsLoading }) => {
   const [expanded, setExpanded] = useState(true);
   const handleCollapse = () => {
     setExpanded(!expanded);
@@ -24,20 +24,25 @@ const SpotifyRecs = ({ songs, handleAddToPlaylist, url }) => {
                 <i className="fa-solid fa-chevron-down"></i>
               )}
             </button>
-            {!url && <button
-              className="btn btn-primary"
-              onClick={() => handleAddToPlaylist()}
-            >
-              Add to Playlist
-            </button>}
-            {url && <a
-              className="btn btn-success"
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Playlist
-            </a>}
+            {!url && (
+              <button
+                className="btn btn-success"
+                onClick={() => handleAddToPlaylist()}
+              >
+                {recsLoading ? <i className="fa-brands fa-spotify fa-bounce" /> : <><i className="fa-solid fa-circle-plus me-2"></i>Add to Playlist</>}
+              </button>
+            )}
+            {url && (
+              <a
+                className="btn btn-primary"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fa-regular fa-circle-check me-2" />
+                {`View Playlist`}
+              </a>
+            )}
           </div>
         </div>
         <hr></hr>

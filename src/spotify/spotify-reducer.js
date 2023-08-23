@@ -17,6 +17,7 @@ const initialState = {
   longTopSongs: [],
   recs: [],
   recsPlaylistURL: "",
+  recsLoading: false,
 };
 
 const spotifyReducer = createSlice({
@@ -44,8 +45,13 @@ const spotifyReducer = createSlice({
     },
     [addRecsToPlaylistThunk.fulfilled]: (state, action) => {
       state.recsPlaylistURL = action.payload;
-      console.log('nuts')
-    }
+      state.recsLoading = false;
+      console.log("nuts");
+    },
+    [addRecsToPlaylistThunk.pending]: (state, action) => {
+      state.recsLoading = true;
+      console.log("nuts");
+    },
   },
 });
 
