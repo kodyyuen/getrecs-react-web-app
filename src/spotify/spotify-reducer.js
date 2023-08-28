@@ -10,8 +10,7 @@ import {
 } from "./spotify-thunks";
 
 const initialState = {
-  spotifyProfile: {},
-  spotifyUser: null,
+  spotifyProfile: null,
   shortTopSongs: [],
   mediumTopSongs: [],
   longTopSongs: [],
@@ -27,30 +26,46 @@ const spotifyReducer = createSlice({
     [getSpotifyProfileThunk.fulfilled]: (state, action) => {
       state.spotifyProfile = action.payload;
     },
+    [getSpotifyProfileThunk.rejected]: (state, action) => {
+      state.spotifyProfile = null;
+    },
     [spotifyLogoutThunk.fulfilled]: (state, action) => {
-      state.spotifyProfile = {};
+      state.spotifyProfile = null;
     },
     [getSpotifyShortTopSongsThunk.fulfilled]: (state, action) => {
       state.shortTopSongs = action.payload;
     },
+    [getSpotifyShortTopSongsThunk.rejected]: (state, action) => {
+      state.spotifyProfile = null;
+    },
     [getSpotifyMediumTopSongsThunk.fulfilled]: (state, action) => {
       state.mediumTopSongs = action.payload;
     },
+    [getSpotifyMediumTopSongsThunk.rejected]: (state, action) => {
+      state.spotifyProfile = null;
+    },
     [getSpotifyLongTopSongsThunk.fulfilled]: (state, action) => {
       state.longTopSongs = action.payload;
+    },
+    [getSpotifyLongTopSongsThunk.rejected]: (state, action) => {
+      state.spotifyProfile = null;
     },
     [getSpotifyRecsThunk.fulfilled]: (state, action) => {
       state.recs = action.payload;
       state.recsPlaylistURL = "";
     },
+    [getSpotifyRecsThunk.rejected]: (state, action) => {
+      state.spotifyProfile = null;
+    },
     [addRecsToPlaylistThunk.fulfilled]: (state, action) => {
       state.recsPlaylistURL = action.payload;
       state.recsLoading = false;
-      console.log("nuts");
     },
     [addRecsToPlaylistThunk.pending]: (state, action) => {
       state.recsLoading = true;
-      console.log("nuts");
+    },
+    [addRecsToPlaylistThunk.rejected]: (state, action) => {
+      state.spotifyProfile = null;
     },
   },
 });

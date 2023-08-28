@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import {
   getAlbumName,
   getArtistName,
+  getArtistsLinks,
   getDuration,
   getImage,
   getSongID,
@@ -32,7 +33,7 @@ export const RenderSongsList = ({ songs }) => {
             <li key={song.id} className="list-group-item p-2">
               <div className="row d-flex align-items-center">
                 <div className="col-1 ps-3">{idx + 1}</div>
-                <div className="col col-sm-2">
+                <div className="col col-sm-2 pe-5">
                   <a
                     className=""
                     href={getSongLink(song)}
@@ -49,9 +50,11 @@ export const RenderSongsList = ({ songs }) => {
                 <div className="col col-sm-4 col-md-5">
                   <Link to={`/details/${getSongID(song)}`}>
                     <h5>
-                      {getSongName(song)} - {getArtistName(song)}
+                      {getSongName(song)}
                     </h5>
                   </Link>
+                  {/* {getArtistName(song)} */}
+                  {getArtistsLinks(song)}
                 </div>
                 <div className="d-none d-sm-block col-sm-3">
                   <h5 className="text-muted">{getAlbumName(song)}</h5>

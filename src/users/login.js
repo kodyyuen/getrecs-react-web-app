@@ -20,7 +20,7 @@ const Login = () => {
   if (currentUser) {
     return <Navigate to={"/profile"} />;
   }
-  if (Object.keys(spotifyProfile).length > 0) {
+  if (spotifyProfile) {
     return <Navigate to={"/spotify"} />;
   }
   return (

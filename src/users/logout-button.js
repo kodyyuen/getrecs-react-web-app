@@ -1,13 +1,12 @@
 import { useDispatch } from "react-redux";
-import { logoutThunk } from "./users-thunk";
 import { useNavigate } from "react-router";
 
-const LogOutButton = () => {
+const LogOutButton = ({thunk}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogoutBtn = () => {
-    dispatch(logoutThunk());
+    dispatch(thunk());
     navigate("/login");
   };
 
