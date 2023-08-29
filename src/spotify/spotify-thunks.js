@@ -6,7 +6,10 @@ import {
   getSpotifyRecs,
   getSpotifyShortTopSongs,
   spotifyLogout,
-  addRecsToPlaylist
+  addRecsToPlaylist,
+  getSpotifyShortTopArtists,
+  getSpotifyMediumTopArtists,
+  getSpotifyLongTopArtists
 } from "./spotify-service";
 
 export const getSpotifyProfileThunk = createAsyncThunk(
@@ -17,6 +20,21 @@ export const getSpotifyProfileThunk = createAsyncThunk(
 export const spotifyLogoutThunk = createAsyncThunk(
   "spotifyLogout",
   async () => await spotifyLogout()
+);
+
+export const getSpotifyShortTopArtistsThunk = createAsyncThunk(
+  "spotifyGetShortTopArtists",
+  async () => await getSpotifyShortTopArtists()
+);
+
+export const getSpotifyMediumTopArtistsThunk = createAsyncThunk(
+  "spotifyGetMediumTopArtists",
+  async () => await getSpotifyMediumTopArtists()
+);
+
+export const getSpotifyLongTopArtistsThunk = createAsyncThunk(
+  "spotifyGetLongTopArtists",
+  async () => await getSpotifyLongTopArtists()
 );
 
 export const getSpotifyShortTopSongsThunk = createAsyncThunk(

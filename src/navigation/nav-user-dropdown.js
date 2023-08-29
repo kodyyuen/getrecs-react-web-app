@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import LogOutButton from "../users/logout-button";
 
-const UserDropdown = ({name, thunk}) => {
+const UserDropdown = ({name, parts, thunk}) => {
+
   return (
     <li className="d-flex">
       <div className="dropdown">
@@ -14,9 +15,14 @@ const UserDropdown = ({name, thunk}) => {
         >
           {name}
         </div>
-        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
           <li>
-            <Link to="/profile" className="dropdown-item text-dark">
+            <Link to="/profile" className={`dropdown-item ${
+                        parts.length === 2 &&
+                        (parts[1] === "profile" || parts[1] === "spotify")
+                          ? "active"
+                          : ""
+                      }`}>
               Private Profile
             </Link>
           </li>

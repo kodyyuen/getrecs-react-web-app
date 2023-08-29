@@ -16,6 +16,21 @@ export const spotifyLogout = async () => {
   return response.data;
 }
 
+export const getSpotifyShortTopArtists = async () => {
+  const response = await api.get(`${SPOTIFY_API_URL}/topartists/short`);
+  return response.data;
+}
+
+export const getSpotifyMediumTopArtists = async () => {
+  const response = await api.get(`${SPOTIFY_API_URL}/topartists/medium`);
+  return response.data;
+}
+
+export const getSpotifyLongTopArtists = async () => {
+  const response = await api.get(`${SPOTIFY_API_URL}/topartists/long`);
+  return response.data;
+}
+
 export const getSpotifyShortTopSongs = async () => {
   const response = await api.get(`${SPOTIFY_API_URL}/topsongs/short`);
   return response.data;

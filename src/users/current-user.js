@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { profileThunk } from "./users-thunk";
-import { getSpotifyLongTopSongsThunk, getSpotifyMediumTopSongsThunk, getSpotifyProfileThunk, getSpotifyShortTopSongsThunk } from "../spotify/spotify-thunks";
+import { getSpotifyLongTopArtistsThunk, getSpotifyLongTopSongsThunk, getSpotifyMediumTopArtistsThunk, getSpotifyMediumTopSongsThunk, getSpotifyProfileThunk, getSpotifyShortTopArtistsThunk, getSpotifyShortTopSongsThunk } from "../spotify/spotify-thunks";
 
 const CurrentUser = ({ children }) => {
   const dispatch = useDispatch();
@@ -10,6 +10,9 @@ const CurrentUser = ({ children }) => {
     dispatch(getSpotifyShortTopSongsThunk());
     dispatch(getSpotifyMediumTopSongsThunk());
     dispatch(getSpotifyLongTopSongsThunk());
+    dispatch(getSpotifyShortTopArtistsThunk());
+    dispatch(getSpotifyMediumTopArtistsThunk());
+    dispatch(getSpotifyLongTopArtistsThunk());
   }, []);
   return (children);
 }

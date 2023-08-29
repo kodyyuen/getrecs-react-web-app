@@ -100,12 +100,14 @@ const Navigation = () => {
                     ? currentUser.name
                     : currentUser.username
                 }
+                {...{parts}}
                 thunk={logoutThunk}
               />
             )}
             {spotifyProfile && (
               <UserDropdown
                 name={spotifyProfile.display_name}
+                {...{parts}}
                 thunk={spotifyLogoutThunk}
               />
             )}
@@ -125,15 +127,15 @@ const Navigation = () => {
           </Link>
           <div className="dropdown">
             <button
-              className="btn btn-secondary dropdown-toggle"
+              className="btn"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Menu
+              <i class="fa-solid fa-bars"></i>
             </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
               <li>
                 <Link
                   to="/search"
@@ -203,7 +205,15 @@ const Navigation = () => {
               {(currentUser || spotifyProfile) && (
                 <>
                   <li>
-                    <Link to="/profile" className="dropdown-item">
+                    <Link
+                      to="/profile"
+                      className={`dropdown-item ${
+                        parts.length === 2 &&
+                        (parts[1] === "profile" || parts[1] === "spotify")
+                          ? "active"
+                          : ""
+                      }`}
+                    >
                       Private Profile
                     </Link>
                   </li>

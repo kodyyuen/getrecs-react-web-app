@@ -1,5 +1,6 @@
 import { RenderSongsList } from "../songs/songs-list";
 import { useState } from "react";
+import SongListHeader from "./song-list-header";
 
 const SpotifyRecs = ({ songs, handleAddToPlaylist, url, recsLoading }) => {
   const [expanded, setExpanded] = useState(true);
@@ -9,44 +10,7 @@ const SpotifyRecs = ({ songs, handleAddToPlaylist, url, recsLoading }) => {
 
   return (
     <div className="mt-4 mb-5">
-      <div className="row">
-        <div className="d-flex justify-content-between mb-1">
-          <h5>{`Recs`}</h5>
-          <div>
-            <button
-              type="button"
-              className="btn btn-outline-primary me-2"
-              onClick={handleCollapse}
-            >
-              {expanded ? (
-                <i className="fa-solid fa-chevron-up"></i>
-              ) : (
-                <i className="fa-solid fa-chevron-down"></i>
-              )}
-            </button>
-            {!url && (
-              <button
-                className="btn btn-success"
-                onClick={() => handleAddToPlaylist()}
-              >
-                {recsLoading ? <i className="fa-brands fa-spotify fa-bounce" /> : <><i className="fa-solid fa-circle-plus me-2"></i>Add to Playlist</>}
-              </button>
-            )}
-            {url && (
-              <a
-                className="btn btn-primary"
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fa-regular fa-circle-check me-2" />
-                {`View Playlist`}
-              </a>
-            )}
-          </div>
-        </div>
-        <hr></hr>
-      </div>
+      <SongListHeader name={'Recs'} {...{expanded, setExpanded, handleAddToPlaylist, url, recsLoading}}/>
       {expanded && <RenderSongsList songs={songs} />}
     </div>
   );

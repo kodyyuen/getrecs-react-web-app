@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addRecsToPlaylistThunk,
+  getSpotifyLongTopArtistsThunk,
   getSpotifyLongTopSongsThunk,
+  getSpotifyMediumTopArtistsThunk,
   getSpotifyMediumTopSongsThunk,
   getSpotifyProfileThunk,
   getSpotifyRecsThunk,
+  getSpotifyShortTopArtistsThunk,
   getSpotifyShortTopSongsThunk,
   spotifyLogoutThunk,
 } from "./spotify-thunks";
@@ -14,6 +17,9 @@ const initialState = {
   shortTopSongs: [],
   mediumTopSongs: [],
   longTopSongs: [],
+  shortTopArtists: [],
+  mediumTopArtists: [],
+  longTopArtists: [],
   recs: [],
   recsPlaylistURL: "",
   recsLoading: false,
@@ -48,6 +54,24 @@ const spotifyReducer = createSlice({
       state.longTopSongs = action.payload;
     },
     [getSpotifyLongTopSongsThunk.rejected]: (state, action) => {
+      state.spotifyProfile = null;
+    },
+    [getSpotifyShortTopArtistsThunk.fulfilled]: (state, action) => {
+      state.shortTopArtists = action.payload;
+    },
+    [getSpotifyShortTopArtistsThunk.rejected]: (state, action) => {
+      state.spotifyProfile = null;
+    },
+    [getSpotifyMediumTopArtistsThunk.fulfilled]: (state, action) => {
+      state.mediumTopArtists = action.payload;
+    },
+    [getSpotifyMediumTopArtistsThunk.rejected]: (state, action) => {
+      state.spotifyProfile = null;
+    },
+    [getSpotifyLongTopArtistsThunk.fulfilled]: (state, action) => {
+      state.longTopArtists = action.payload;
+    },
+    [getSpotifyLongTopArtistsThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
     },
     [getSpotifyRecsThunk.fulfilled]: (state, action) => {
