@@ -1,51 +1,59 @@
 const SelectTracksTime = ({ time, setTime, id }) => {
+  const fontSize = { fontSize: "1.75vh" };
+
   return (
-    <div className="d-flex justify-content-center">
+    <div className="d-flex justify-content-center my-2">
       <div className="btn-group" role="group">
         <input
           type="radio"
           className="btn-check"
           name="gen-method"
-          id={id * 2}
+          id={id + 1}
           onClick={() => setTime("short")}
         />
         <label
-          className={`btn ${
+          className={`btn p-1 d-flex align-items-center ${
             time === "short" ? "btn-secondary" : "btn-outline-secondary"
           }`}
-          htmlFor={id * 2}
+          htmlFor={id + 1}
         >
-          Last Month
+          <p className="m-0" style={fontSize}>
+            Last Month
+          </p>
         </label>
         <input
           type="radio"
           className="btn-check"
           name="gen-method"
-          id={id * 3}
+          id={id + 2}
           onClick={() => setTime("medium")}
         />
         <label
-          className={`btn ${
+          className={`btn p-1 ${
             time === "medium" ? "btn-secondary" : "btn-outline-secondary"
           }`}
-          htmlFor={id * 3}
+          htmlFor={id + 2}
         >
-          Last 6 Months
+          <p className="m-0" style={fontSize}>
+            Last 6 Months
+          </p>
         </label>
         <input
           type="radio"
           className="btn-check"
           name="gen-method"
-          id={id * 4}
+          id={id + 3}
           onClick={() => setTime("long")}
         />
         <label
           className={`btn ${
             time === "long" ? "btn-secondary" : "btn-outline-secondary"
           }`}
-          htmlFor={id * 4}
+          htmlFor={id + 3}
         >
-          All Time
+          <p className="m-0" style={fontSize}>
+            All Time
+          </p>
         </label>
       </div>
     </div>

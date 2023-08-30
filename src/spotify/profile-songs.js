@@ -29,6 +29,7 @@ const ProfileSongs = ({
       const seeds = timeSeeds[time].slice(0, 5).map((song) => song.id);
       dispatch(getSpotifyRecsThunk({ seeds: seeds }));
     }
+    setSongsExpanded(false);
   };
 
   const handleAddToPlaylist = () => {
@@ -47,24 +48,34 @@ const ProfileSongs = ({
   };
 
   useEffect(() => {
-    console.log("song: " + songsTime);
-  });
+    setSongsExpanded(true);
+  }, [songsTime])
 
   return (
-    <div className="pt-5">
-        <h1>Top Songs</h1>
-      <div className="d-flex justify-content-around">
-        <SelectTracksTime time={songsTime} setTime={setSongsTime} id={3} />
-        <button
-          className="btn btn-primary"
-          onClick={() => handleGenerateRecs(songsTime)}
-        >
-          Generate Recommendations
-        </button>
+    <div className="pt-5 px-1">
+      <h1>Top Songs</h1>
+      {/* <div className="d-flex justify-content-between"> */}
+      <div className="row d-flex justify-content-between">
+        <div className="col-md-12 col-lg-6 p-1">
+          <SelectTracksTime
+            time={songsTime}
+            setTime={setSongsTime}
+            id={"songs"}
+          />
+        </div>
+        <div className="col-md-12 col-lg-6 d-flex justify-content-center">
+          <button
+            className="btn btn-primary m-1"
+            onClick={() => handleGenerateRecs(songsTime)}
+            style={{ fontSize: "1.75vh" }}
+          >
+            Generate Recommendations
+          </button>
+        </div>
       </div>
-      <div className="row justify-content-between">
-        <div className="row w-50">
-          <div className="mt-4 mb-5">
+      <div className="row justify-content-between px-1">
+        <div className="col-md-12 col-lg-6 p-1">
+          <div className="mt-4 mb-5 p-0">
             <SongListHeader
               name={"Songs"}
               expanded={songsExpanded}
@@ -78,7 +89,7 @@ const ProfileSongs = ({
               }[songsTime]}
           </div>
         </div>
-        <div className="row w-50">
+        <div className="col-md-12 col-lg-6 p-1">
           {recs.length > 0 && (
             <SpotifyRecs
               songs={recs}

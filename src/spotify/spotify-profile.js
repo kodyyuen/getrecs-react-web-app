@@ -66,13 +66,19 @@ const SpotifyProfile = () => {
 
   return (
     <>
-      <h1>Spotify Profile</h1>
-      <img
-        src={spotifyProfile.images[0].url}
-        className="img-fluid"
-        alt="profile pic"
-      />
-      <h1>{spotifyProfile.display_name}</h1>
+      <div className="row mt-3">
+        <div className="col-5 col-md-3">
+          <img
+            src={spotifyProfile.images[1].url}
+            className="img-fluid rounded-circle border border-3 border-success"
+            alt="profile pic"
+          />
+        </div>
+        <div className="col-7 col-md-9">
+          <h5>Spotify Profile</h5>
+          <h1 className="display-1 fw-bold">{spotifyProfile.display_name}</h1>
+        </div>
+      </div>
 
       <ProfileArtists
         {...{ shortTopArtists, mediumTopArtists, longTopArtists }}

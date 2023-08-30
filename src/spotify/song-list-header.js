@@ -1,6 +1,6 @@
 const SongListHeader = ({name, expanded, setExpanded, handleAddToPlaylist, url, recsLoading}) => {
   return (
-    <div className="row">
+    <div className="row m-0">
       <div className="d-flex justify-content-between mb-1">
         <h5>{name}</h5>
         <div>

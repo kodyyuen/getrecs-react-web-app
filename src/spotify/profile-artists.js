@@ -1,6 +1,7 @@
 import ProfileArtistsSet from "./profile-artists-set";
 import SelectTracksTime from "./select-tracks-time";
 import { useEffect, useState } from "react";
+import SongListHeader from "./song-list-header";
 
 const ProfileArtists = ({
   shortTopArtists,
@@ -8,18 +9,28 @@ const ProfileArtists = ({
   longTopArtists,
 }) => {
   const [artistsTime, setArtistsTime] = useState("short");
-  useEffect(() => {
-    console.log("artist: " + artistsTime);
-  });
+  const [artistsExpanded, setArtistsExpanded] = useState(true);
+  const expandList = (artists) => {
+    return artists.slice(0, artistsExpanded ? 5 : 10);
+  };
+
   return (
-    <div className="my-5">
-        <h1>Top Artists</h1>
-      <SelectTracksTime time={artistsTime} setTime={setArtistsTime} id={1} />
+    <div className="my-5 p-1">
+      <h1>Top Artists</h1>
+      <SelectTracksTime
+        time={artistsTime}
+        setTime={setArtistsTime}
+        id={"artists"}
+      />
+      <SongListHeader
+        expanded={artistsExpanded}
+        setExpanded={setArtistsExpanded}
+      />
       {
         {
-          short: <ProfileArtistsSet artists={shortTopArtists} />,
-          medium: <ProfileArtistsSet artists={mediumTopArtists} />,
-          long: <ProfileArtistsSet artists={longTopArtists} />,
+          short: <ProfileArtistsSet artists={expandList(shortTopArtists)} />,
+          medium: <ProfileArtistsSet artists={expandList(mediumTopArtists)} />,
+          long: <ProfileArtistsSet artists={expandList(longTopArtists)} />,
         }[artistsTime]
       }
     </div>

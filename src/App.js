@@ -33,7 +33,7 @@ const store = configureStore({
 
 function App() {
   return (
-    <div className="container mt-3 mb-3">
+    <div className="container mt-3 mb-3 px-2">
       <Provider store={store}>
         <BrowserRouter>
           <CurrentUser>

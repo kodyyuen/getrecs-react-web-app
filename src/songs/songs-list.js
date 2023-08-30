@@ -88,7 +88,7 @@ import {
 export const RenderSongsList = ({ songs }) => {
   return (
     <>
-      <div className="row">
+      <div className="row m-0">
         <div className="col-1">
           <h5 className="font-weight-bold mb-1">#</h5>
         </div>
@@ -98,17 +98,17 @@ export const RenderSongsList = ({ songs }) => {
         <div className="d-none d-sm-block col-3">
           <h5 className="font-weight-bold mb-1">Album</h5>
         </div>
-        <div className="d-none d-sm-block col-sm-2 col-md-1">
+        <div className="d-none d-sm-block col-sm-2 col-md-1 p-0">
           <h5 className="font-weight-bold mb-1">Time</h5>
         </div>
       </div>
       <div>
         <ul className="list-group pe-0">
           {songs.map((song, idx) => (
-            <li key={song.id} className="list-group-item p-2">
-              <div className="row d-flex align-items-center">
-                <div className="col-1 ps-3">{idx + 1}</div>
-                <div className="col col-sm-2 pe-4">
+            <li key={song.id} className="list-group-item p-1">
+              <div className="row d-flex align-items-center m-0">
+                <div className="col-1">{idx + 1}</div>
+                <div className="col-3 col-sm-1 col-md-2">
                   <a
                     className=""
                     href={getSongLink(song)}
@@ -122,7 +122,7 @@ export const RenderSongsList = ({ songs }) => {
                     />
                   </a>
                 </div>
-                <div className="col col-sm-4 col-md-5">
+                <div className="col col-sm-5 ps-2">
                   <Link to={`/details/${getSongID(song)}`}>
                     <h6>
                       {getSongName(song)}
