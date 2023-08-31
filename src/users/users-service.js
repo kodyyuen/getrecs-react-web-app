@@ -1,8 +1,10 @@
 import axios from "axios";
 import { getRecommendationsBySongs, getRecommendationsByGenres } from "../songs/songs-service";
 
-const USER_API_URL = 'http://localhost:4000/users'
-const BASE_API_URL = 'http://localhost:4000'
+// const USER_API_URL = 'http://localhost:4000/users'
+// const BASE_API_URL = 'http://localhost:4000'
+const USER_API_URL = 'https://getrecs-node-server-app-6d8abdb70e6b.herokuapp.com/users'
+const BASE_API_URL = 'https://getrecs-node-server-app-6d8abdb70e6b.herokuapp.com'
 
 const api = axios.create({ withCredentials: true });
 
