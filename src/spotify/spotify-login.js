@@ -3,26 +3,12 @@ import { useDispatch } from "react-redux";
 import { getSpotifyProfileThunk } from "./spotify-thunks";
 
 const SpotifyLogin = () => {
-  const authEndpoint = "https://accounts.spotify.com/authorize";
-  const clientId = "9534d135519d4b049b481e8bc6862e40";
-  const redirectUri = "http://localhost:3000/profile";
-  const scopes = [
-    "user-top-read",
-    "user-read-currently-playing",
-    "user-read-playback-state",
-  ];
-
-  // const { spotifyProfile } = useSelector((state) => state.spotify);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // dispatch(getSpotifyProfileThunk());
-  }, []);
-
+  // const SPOTIFY_API_URL = "http://localhost:4000/spotify";
+  const SPOTIFY_API_URL = "https://getrecs-node-server-app-6d8abdb70e6b.herokuapp.com/spotify";
   return (
     <>
       <div className="text-center w-50 m-auto">
-        <a className="btn btn-success" href="http://localhost:4000/spotify">
+        <a className="btn btn-success" href={SPOTIFY_API_URL}>
           <i className="fa-brands fa-spotify pe-2" />
           Login with Spotify
         </a>

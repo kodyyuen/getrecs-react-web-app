@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const BASE_API_URL = "http://localhost:4000";
-const SPOTIFY_API_URL = "http://localhost:4000/spotify";
+// const SPOTIFY_API_URL = "http://localhost:4000/spotify";
+const SPOTIFY_API_URL = "https://getrecs-node-server-app-6d8abdb70e6b.herokuapp.com/spotify";
 
 const api = axios.create({ withCredentials: true });
 
