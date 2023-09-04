@@ -14,14 +14,6 @@ const SpotifyLogin = () => {
           Login with Spotify
         </a>
       </div>
-    
-    
-    <div className="text-center w-50 m-auto">
-      <button className="btn btn-success" onClick={() => spotifyLogin}>
-        <i className="fa-brands fa-spotify pe-2" />
-        Login with Spotify
-      </button>
-    </div>
   </>
   );
 };
