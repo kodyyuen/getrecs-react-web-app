@@ -12,6 +12,11 @@ export const getSpotifyProfile = async () => {
   return response.data;
 };
 
+export const spotifyLogin = async () => {
+  const response = await api.get(`${SPOTIFY_API_URL}`);
+  return response.data;
+}
+
 export const spotifyLogout = async () => {
   const response = await api.post(`${SPOTIFY_API_URL}/logout`);
   return response.data;
