@@ -9,12 +9,13 @@ import {
   addRecsToPlaylist,
   getSpotifyShortTopArtists,
   getSpotifyMediumTopArtists,
-  getSpotifyLongTopArtists
+  getSpotifyLongTopArtists,
+  getApiKey,
 } from "./spotify-service";
 
 export const getSpotifyProfileThunk = createAsyncThunk(
   "spotifyProfile",
-  async () => await getSpotifyProfile()
+  async (apiKey) => await getSpotifyProfile(apiKey)
 );
 
 export const spotifyLogoutThunk = createAsyncThunk(
@@ -24,40 +25,45 @@ export const spotifyLogoutThunk = createAsyncThunk(
 
 export const getSpotifyShortTopArtistsThunk = createAsyncThunk(
   "spotifyGetShortTopArtists",
-  async () => await getSpotifyShortTopArtists()
+  async (apiKey) => await getSpotifyShortTopArtists(apiKey)
 );
 
 export const getSpotifyMediumTopArtistsThunk = createAsyncThunk(
   "spotifyGetMediumTopArtists",
-  async () => await getSpotifyMediumTopArtists()
+  async (apiKey) => await getSpotifyMediumTopArtists(apiKey)
 );
 
 export const getSpotifyLongTopArtistsThunk = createAsyncThunk(
   "spotifyGetLongTopArtists",
-  async () => await getSpotifyLongTopArtists()
+  async (apiKey) => await getSpotifyLongTopArtists(apiKey)
 );
 
 export const getSpotifyShortTopSongsThunk = createAsyncThunk(
   "spotifyGetShortTopSongs",
-  async () => await getSpotifyShortTopSongs()
+  async (apiKey) => await getSpotifyShortTopSongs(apiKey)
 );
 
 export const getSpotifyMediumTopSongsThunk = createAsyncThunk(
   "spotifyGetMediumTopSongs",
-  async () => await getSpotifyMediumTopSongs()
+  async (apiKey) => await getSpotifyMediumTopSongs(apiKey)
 );
 
 export const getSpotifyLongTopSongsThunk = createAsyncThunk(
   "spotifyGetLongTopSongs",
-  async () => await getSpotifyLongTopSongs()
+  async (apiKey) => await getSpotifyLongTopSongs(apiKey)
 );
 
 export const getSpotifyRecsThunk = createAsyncThunk(
   "spotifyGetRecs",
-  async (seeds) => await getSpotifyRecs(seeds)
+  async (params) => await getSpotifyRecs(params)
 );
 
 export const addRecsToPlaylistThunk = createAsyncThunk(
   "spotifyAddRecs",
   async (params) => await addRecsToPlaylist(params)
+);
+
+export const getApiKeyThunk = createAsyncThunk(
+  "spotifyGetApiKey",
+  async (code) => await getApiKey(code)
 );

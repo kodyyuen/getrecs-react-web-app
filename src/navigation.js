@@ -133,7 +133,7 @@ const Navigation = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <i class="fa-solid fa-bars"></i>
+              <i className="fa-solid fa-bars"></i>
             </button>
             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
               <li>

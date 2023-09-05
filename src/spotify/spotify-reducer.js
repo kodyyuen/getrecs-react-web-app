@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addRecsToPlaylistThunk,
+  getApiKeyThunk,
   getSpotifyLongTopArtistsThunk,
   getSpotifyLongTopSongsThunk,
   getSpotifyMediumTopArtistsThunk,
@@ -23,6 +24,7 @@ const initialState = {
   recs: [],
   recsPlaylistURL: "",
   recsLoading: false,
+  apiKey: "",
 };
 
 const spotifyReducer = createSlice({
@@ -34,45 +36,53 @@ const spotifyReducer = createSlice({
     },
     [getSpotifyProfileThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
     },
     [spotifyLogoutThunk.fulfilled]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
     },
     [getSpotifyShortTopSongsThunk.fulfilled]: (state, action) => {
       state.shortTopSongs = action.payload;
     },
     [getSpotifyShortTopSongsThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
     },
     [getSpotifyMediumTopSongsThunk.fulfilled]: (state, action) => {
       state.mediumTopSongs = action.payload;
     },
     [getSpotifyMediumTopSongsThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
     },
     [getSpotifyLongTopSongsThunk.fulfilled]: (state, action) => {
       state.longTopSongs = action.payload;
     },
     [getSpotifyLongTopSongsThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
     },
     [getSpotifyShortTopArtistsThunk.fulfilled]: (state, action) => {
       state.shortTopArtists = action.payload;
     },
     [getSpotifyShortTopArtistsThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
     },
     [getSpotifyMediumTopArtistsThunk.fulfilled]: (state, action) => {
       state.mediumTopArtists = action.payload;
     },
     [getSpotifyMediumTopArtistsThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
     },
     [getSpotifyLongTopArtistsThunk.fulfilled]: (state, action) => {
       state.longTopArtists = action.payload;
     },
     [getSpotifyLongTopArtistsThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
     },
     [getSpotifyRecsThunk.fulfilled]: (state, action) => {
       state.recs = action.payload;
@@ -90,6 +100,15 @@ const spotifyReducer = createSlice({
     },
     [addRecsToPlaylistThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
+    },
+    [getApiKeyThunk.fulfilled]: (state, action) => {
+      state.apiKey = action.payload;
+      console.log("getApiKeyThunk.fulfilled: " + action.payload)
+    },
+    [getApiKeyThunk.rejected]: (state, action) => {
+      console.log("getApiKeyThunk.rejected: " + action.payload)
+      console.log(action)
     },
   },
 });

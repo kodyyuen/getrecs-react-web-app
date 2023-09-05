@@ -5,15 +5,15 @@ import { getSpotifyLongTopArtistsThunk, getSpotifyLongTopSongsThunk, getSpotifyM
 
 const CurrentUser = ({ children }) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getSpotifyProfileThunk())
-    dispatch(getSpotifyShortTopSongsThunk());
-    dispatch(getSpotifyMediumTopSongsThunk());
-    dispatch(getSpotifyLongTopSongsThunk());
-    dispatch(getSpotifyShortTopArtistsThunk());
-    dispatch(getSpotifyMediumTopArtistsThunk());
-    dispatch(getSpotifyLongTopArtistsThunk());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getSpotifyProfileThunk())
+  //   dispatch(getSpotifyShortTopSongsThunk());
+  //   dispatch(getSpotifyMediumTopSongsThunk());
+  //   dispatch(getSpotifyLongTopSongsThunk());
+  //   dispatch(getSpotifyShortTopArtistsThunk());
+  //   dispatch(getSpotifyMediumTopArtistsThunk());
+  //   dispatch(getSpotifyLongTopArtistsThunk());
+  // }, []);
   return (children);
 }
 

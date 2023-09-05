@@ -1,13 +1,13 @@
 import ProfileArtistsSet from "./profile-artists-set";
 import SelectTracksTime from "./select-tracks-time";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SongListHeader from "./song-list-header";
+import { useSelector } from "react-redux";
 
-const ProfileArtists = ({
-  shortTopArtists,
-  mediumTopArtists,
-  longTopArtists,
-}) => {
+const ProfileArtists = () => {
+  const { shortTopArtists, mediumTopArtists, longTopArtists } = useSelector(
+    (state) => state.spotify
+  );
   const [artistsTime, setArtistsTime] = useState("short");
   const [artistsExpanded, setArtistsExpanded] = useState(true);
   const expandList = (artists) => {

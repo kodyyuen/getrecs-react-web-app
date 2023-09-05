@@ -1,23 +1,27 @@
 import SelectTracksTime from "./select-tracks-time";
 import SongListHeader from "./song-list-header";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getSpotifyRecsThunk, addRecsToPlaylistThunk } from "./spotify-thunks";
 import { RenderSongsList } from "../songs/songs-list";
 import SpotifyRecs from "./spotify-recs";
+import useViewport from "../helpers/use-viewport";
 
-const ProfileSongs = ({
-  shortTopSongs,
-  mediumTopSongs,
-  longTopSongs,
-  recs,
-  spotifyProfile,
-  recsPlaylistURL,
-  recsLoading,
-}) => {
+const ProfileSongs = () => {
+  const {
+    spotifyProfile,
+    shortTopSongs,
+    mediumTopSongs,
+    longTopSongs,
+    recs,
+    recsPlaylistURL,
+    recsLoading,
+    apiKey,
+  } = useSelector((state) => state.spotify);
   const [songsTime, setSongsTime] = useState("short");
   const [songsExpanded, setSongsExpanded] = useState(true);
   const dispatch = useDispatch();
+  const { width } = useViewport();
   const timeSeeds = {
     short: shortTopSongs,
     medium: mediumTopSongs,
@@ -27,9 +31,11 @@ const ProfileSongs = ({
   const handleGenerateRecs = (time) => {
     if (timeSeeds[time].length !== 0) {
       const seeds = timeSeeds[time].slice(0, 5).map((song) => song.id);
-      dispatch(getSpotifyRecsThunk({ seeds: seeds }));
+      dispatch(getSpotifyRecsThunk({ seeds, apiKey }));
     }
-    setSongsExpanded(false);
+    if (width <= 768) {
+      setSongsExpanded(false);
+    }
   };
 
   const handleAddToPlaylist = () => {
@@ -43,13 +49,14 @@ const ProfileSongs = ({
       uris: {
         uris: recs.map((s) => s.uri),
       },
+      apiKey,
     };
-    dispatch(addRecsToPlaylistThunk({ params: params }));
+    dispatch(addRecsToPlaylistThunk(params));
   };
 
   useEffect(() => {
     setSongsExpanded(true);
-  }, [songsTime])
+  }, [songsTime]);
 
   return (
     <div className="pt-5 px-1">

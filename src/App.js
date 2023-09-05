@@ -22,6 +22,7 @@ import Users from "./users";
 import SpotifyProfile from "./spotify/spotify-profile";
 import spotifyReducer from "./spotify/spotify-reducer";
 import ProtectedSpotifyRoute from "./spotify/protected-spotify-route";
+import SpotifyCallback from "./spotify/spotify-callback";
 
 const store = configureStore({
   reducer: {
@@ -36,7 +37,7 @@ function App() {
     <div className="container mt-3 mb-3 px-2">
       <Provider store={store}>
         <BrowserRouter>
-          <CurrentUser>
+          {/* <CurrentUser> */}
             <Navigation />
             <Routes>
               <Route index element={<Recs />} />
@@ -62,8 +63,9 @@ function App() {
                   </ProtectedSpotifyRoute>
                 }
               />
+              <Route path="/spotify/callback" element={<SpotifyCallback />} />
             </Routes>
-          </CurrentUser>
+          {/* </CurrentUser> */}
         </BrowserRouter>
       </Provider>
     </div>
