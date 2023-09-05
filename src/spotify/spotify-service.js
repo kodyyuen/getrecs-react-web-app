@@ -61,12 +61,14 @@ export const getApiKey = async (code) => {
     "utf-8"
   ).toString("base64");
 
+  const redirect_uri = `${process.env.REACT_APP_SITE_BASE_URL}/spotify/callback`;
+
   const response = await axios.post(
     "https://accounts.spotify.com/api/token",
     {
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: `${process.env.REACT_APP_SITE_BASE_URL}/spotify/callback`,
+      redirect_uri,
     },
     {
       headers: {
@@ -76,14 +78,8 @@ export const getApiKey = async (code) => {
     }
   );
   console.log("getApiKey2");
-  // apiKey = response.data.access_token;
   console.log("apiKey: " + response.data.access_token);
   return response.data.access_token;
-  // req.session.apiKey = response.data.access_token;
-  // req.session.refresh_token = response.data.refresh_token;
-  // console.log("api token: " + req.session.apiKey);
-  // console.log("getApiKey: " + JSON.stringify(req.session, null, 2));
-  // res.redirect("http://localhost:3000/login");
 };
 
 export const getSpotifyProfile = async (apiKey) => {
