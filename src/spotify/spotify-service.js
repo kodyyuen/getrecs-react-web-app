@@ -61,15 +61,15 @@ export const getApiKey = async (code) => {
     "utf-8"
   ).toString("base64");
 
-  const redirect_uri = `${process.env.REACT_APP_SITE_BASE_URL}/spotify/callback`;
-  console.log('redirect_uri: ' + redirect_uri)
-  console.log('base_site_url: ' + process.env.REACT_APP_SITE_BASE_URL)
+  // const redirect_uri = `${process.env.REACT_APP_SITE_BASE_URL}/spotify/callback`;
+  // console.log('redirect_uri: ' + redirect_uri)
+  // console.log('base_site_url: ' + process.env.REACT_APP_SITE_BASE_URL)
   const response = await axios.post(
     "https://accounts.spotify.com/api/token",
     {
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: redirect_uri,
+      redirect_uri: `${process.env.REACT_APP_SITE_BASE_URL}/spotify/callback`,
     },
     {
       headers: {
