@@ -44,7 +44,7 @@ const redirectLogin = async () => {
     response_type: "token",
     client_id: process.env.REACT_APP_CLIENT_ID,
     scope: scopes.join(" "),
-    redirect_uri: `${process.env.SITE_BASE_URL}/spotify`,
+    redirect_uri: process.env.SITE_BASE_URL + "/spotify",
     show_dialog: "true",
   });
 
@@ -60,13 +60,15 @@ export const getApiKey = async (code) => {
     `${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`,
     "utf-8"
   ).toString("base64");
+  const redirect_uri = process.env.SITE_BASE_URL + "/spotify/callback";
 
   const response = await axios.post(
     "https://accounts.spotify.com/api/token",
     {
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: `${process.env.SITE_BASE_URL}/spotify/callback`,
+      // redirect_uri: `${process.env.SITE_BASE_URL}/spotify/callback`,
+      redirect_uri,
     },
     {
       headers: {
