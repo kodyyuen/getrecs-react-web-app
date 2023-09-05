@@ -2,7 +2,7 @@ const SelectTracksTime = ({ time, setTime, id }) => {
   const fontSize = { fontSize: "1.75vh" };
 
   return (
-    <div className="d-flex justify-content-center my-2">
+    <div className="d-flex justify-content-center ">
       <div className="btn-group" role="group">
         <input
           type="radio"

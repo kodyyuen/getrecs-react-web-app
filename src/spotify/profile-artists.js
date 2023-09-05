@@ -16,13 +16,15 @@ const ProfileArtists = () => {
 
   return (
     <div className="my-5 p-1">
-      <h1>Top Artists</h1>
-      <SelectTracksTime
-        time={artistsTime}
-        setTime={setArtistsTime}
-        id={"artists"}
-      />
+      <h1 className="mb-4">Top Artists</h1>
       <SongListHeader
+        col2={
+          <SelectTracksTime
+            time={artistsTime}
+            setTime={setArtistsTime}
+            id={"artists"}
+          />
+        }
         expanded={artistsExpanded}
         setExpanded={setArtistsExpanded}
       />

@@ -25,6 +25,7 @@ const ProtectedSpotifyRoute = ({ children }) => {
       dispatch(getSpotifyMediumTopArtistsThunk(apiKey));
       dispatch(getSpotifyLongTopArtistsThunk(apiKey));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (apiKey && spotifyProfile) {

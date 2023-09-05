@@ -19,9 +19,7 @@ const SpotifyProfile = () => {
           <h1 className="display-1 fw-bold">{spotifyProfile.display_name}</h1>
         </div>
       </div>
-
       <ProfileArtists />
-
       <ProfileSongs />
     </>
   );

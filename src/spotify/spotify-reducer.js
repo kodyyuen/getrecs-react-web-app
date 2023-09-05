@@ -90,6 +90,7 @@ const spotifyReducer = createSlice({
     },
     [getSpotifyRecsThunk.rejected]: (state, action) => {
       state.spotifyProfile = null;
+      state.apiKey = "";
     },
     [addRecsToPlaylistThunk.fulfilled]: (state, action) => {
       state.recsPlaylistURL = action.payload;
@@ -104,11 +105,9 @@ const spotifyReducer = createSlice({
     },
     [getApiKeyThunk.fulfilled]: (state, action) => {
       state.apiKey = action.payload;
-      console.log("getApiKeyThunk.fulfilled: " + action.payload)
     },
     [getApiKeyThunk.rejected]: (state, action) => {
-      console.log("getApiKeyThunk.rejected: " + action.payload)
-      console.log(action)
+      console.log("getApiKeyThunk.rejected: " + action);
     },
   },
 });

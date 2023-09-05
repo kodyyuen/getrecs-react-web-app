@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotifyRecsThunk, addRecsToPlaylistThunk } from "./spotify-thunks";
 import { RenderSongsList } from "../songs/songs-list";
-import SpotifyRecs from "./spotify-recs";
-import useViewport from "../helpers/use-viewport";
+import AddToPlaylistButton from "./add-to-playlist-button";
 
 const ProfileSongs = () => {
   const {
@@ -21,24 +20,24 @@ const ProfileSongs = () => {
   const [songsTime, setSongsTime] = useState("short");
   const [songsExpanded, setSongsExpanded] = useState(true);
   const dispatch = useDispatch();
-  const { width } = useViewport();
   const timeSeeds = {
     short: shortTopSongs,
     medium: mediumTopSongs,
     long: longTopSongs,
   };
 
+  const [expanded, setExpanded] = useState(true);
+
   const handleGenerateRecs = (time) => {
     if (timeSeeds[time].length !== 0) {
       const seeds = timeSeeds[time].slice(0, 5).map((song) => song.id);
       dispatch(getSpotifyRecsThunk({ seeds, apiKey }));
     }
-    if (width <= 768) {
-      setSongsExpanded(false);
-    }
+    setExpanded(true);
   };
 
   const handleAddToPlaylist = () => {
+    setExpanded(true);
     const params = {
       user_id: spotifyProfile.id,
       body: {
@@ -60,31 +59,18 @@ const ProfileSongs = () => {
 
   return (
     <div className="pt-5 px-1">
-      <h1>Top Songs</h1>
-      {/* <div className="d-flex justify-content-between"> */}
-      <div className="row d-flex justify-content-between">
-        <div className="col-md-12 col-lg-6 p-1">
-          <SelectTracksTime
-            time={songsTime}
-            setTime={setSongsTime}
-            id={"songs"}
-          />
-        </div>
-        <div className="col-md-12 col-lg-6 d-flex justify-content-center">
-          <button
-            className="btn btn-primary m-1"
-            onClick={() => handleGenerateRecs(songsTime)}
-            style={{ fontSize: "1.75vh" }}
-          >
-            Generate Recommendations
-          </button>
-        </div>
-      </div>
       <div className="row justify-content-between px-1">
-        <div className="col-md-12 col-lg-6 p-1">
+        <div className="col-md-12 col-lg-6 order-2 order-lg-1 p-1">
+          <h1>Top Songs</h1>
           <div className="mt-4 mb-5 p-0">
             <SongListHeader
-              name={"Songs"}
+              col2={
+                <SelectTracksTime
+                  time={songsTime}
+                  setTime={setSongsTime}
+                  id={"songs"}
+                />
+              }
               expanded={songsExpanded}
               setExpanded={setSongsExpanded}
             />
@@ -96,15 +82,35 @@ const ProfileSongs = () => {
               }[songsTime]}
           </div>
         </div>
-        <div className="col-md-12 col-lg-6 p-1">
-          {recs.length > 0 && (
-            <SpotifyRecs
-              songs={recs}
-              handleAddToPlaylist={handleAddToPlaylist}
-              url={recsPlaylistURL}
-              recsLoading={recsLoading}
-            />
-          )}
+        <div className="col-md-12 col-lg-6 order-1 order-lg-2 p-1">
+          <h1>Recs</h1>
+          {
+            <div className="mt-4 mb-5">
+              <SongListHeader
+                col1={
+                  <button
+                    className="btn btn-primary m-0"
+                    onClick={() => handleGenerateRecs(songsTime)}
+                    style={{ fontSize: "1.75vh" }}
+                  >
+                    Generate Recs
+                  </button>
+                }
+                col2={
+                  <AddToPlaylistButton
+                    handleAddToPlaylist={handleAddToPlaylist}
+                    url={recsPlaylistURL}
+                    recsLoading={recsLoading}
+                  />
+                }
+                {...{
+                  expanded,
+                  setExpanded,
+                }}
+              />
+              {expanded && <RenderSongsList songs={recs} />}
+            </div>
+          }
         </div>
       </div>
     </div>
