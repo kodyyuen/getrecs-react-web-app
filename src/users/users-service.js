@@ -3,8 +3,10 @@ import { getRecommendationsBySongs, getRecommendationsByGenres } from "../songs/
 
 // const USER_API_URL = 'http://localhost:4000/users'
 // const BASE_API_URL = 'http://localhost:4000'
-const USER_API_URL = 'https://getrecs-node-server-app-6d8abdb70e6b.herokuapp.com/users'
-const BASE_API_URL = 'https://getrecs-node-server-app-6d8abdb70e6b.herokuapp.com'
+// const USER_API_URL = 'https://getrecs-node-server-app-6d8abdb70e6b.herokuapp.com/users'
+// const BASE_API_URL = 'https://getrecs-node-server-app-6d8abdb70e6b.herokuapp.com'
+const BASE_API_URL = process.env.REACT_APP_SONGS_API_URL;
+const USER_API_URL = `${BASE_API_URL}/users`;
 
 const api = axios.create({ withCredentials: true });
 

@@ -10,12 +10,10 @@ import { Buffer } from "buffer";
 //     },
 //     {
 //       headers: {
-//         Authorization:
-//           "Basic " +
-//           Buffer.from(
-//             process.env.REACT_APP_CLIENT_ID + ":" + process.env.REACT_APP_CLIENT_SECRET,
-//             "utf-8"
-//           ).toString("base64"),
+//         Authorization: `Basic ${Buffer.from(
+//           `${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`,
+//           "utf-8"
+//         ).toString("base64")}`,
 //         "Content-Type": "application/x-www-form-urlencoded",
 //       },
 //     }
@@ -35,14 +33,10 @@ export const getApiKey = async (code) => {
     },
     {
       headers: {
-        Authorization:
-          "Basic " +
-          Buffer.from(
-            process.env.REACT_APP_CLIENT_ID +
-              ":" +
-              process.env.REACT_APP_CLIENT_SECRET,
-            "utf-8"
-          ).toString("base64"),
+        Authorization: `Basic ${Buffer.from(
+          `${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`,
+          "utf-8"
+        ).toString("base64")}`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
     }
@@ -54,7 +48,6 @@ export const getSpotifyProfile = async (apiKey) => {
   const response = await axios.get("https://api.spotify.com/v1/me", {
     headers: { Authorization: `Bearer ${apiKey}` },
   });
-  console.log("getSpotifyProfile: " + response.data);
   return response.data;
 };
 

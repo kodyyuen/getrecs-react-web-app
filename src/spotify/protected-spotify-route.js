@@ -29,7 +29,6 @@ const ProtectedSpotifyRoute = ({ children }) => {
   }, []);
 
   if (apiKey && spotifyProfile) {
-    console.log("spotify profile");
     return children;
   } else {
     return <Navigate to={"/login"} />;

@@ -11,7 +11,6 @@ import Register from "./users/register";
 import Login from "./users/login";
 import Details from "./songs/songs-details";
 import Navigation from "./navigation";
-import CurrentUser from "./users/current-user";
 import ProtectedRoute from "./users/protected-route";
 import usersReducer from "./users/users-reducer";
 import songsReducer from "./songs/songs-reducer";

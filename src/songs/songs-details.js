@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { findSongBySongIDThunk } from "./songs-thunks";
 import { findWhoRecentlyLikedThunk, updateUserThunk } from "../users/users-thunk";
-import { getAlbumName, getArtistName, getDuration, getImage, getSongID, getSongLink, getSongName, getArtistLink } from "./songs-helpers"
+import {  getArtistName, getDuration, getImage, getSongLink, getSongName, getArtistLink } from "./songs-helpers"
 import { Link } from "react-router-dom";
 
 const Details = () => {

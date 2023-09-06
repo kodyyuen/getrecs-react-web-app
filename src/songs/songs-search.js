@@ -12,6 +12,7 @@ const SongsSearch = () => {
     if (searchTerm !== "") {
       dispatch(findSongBySearchTermThunk(searchTerm));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

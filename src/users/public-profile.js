@@ -11,6 +11,7 @@ const PublicProfile = () => {
 
   useEffect(() => {
     dispatch(findUserByIdThunk(uid));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uid])
 
   return (

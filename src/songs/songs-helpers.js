@@ -1,6 +1,6 @@
 const truncate = (str) => {
   return str.length > 30 ? str.substring(0, 30) + "..." : str;
-}
+};
 export const getSongName = (song) => {
   return truncate(song.name);
 };
@@ -18,25 +18,20 @@ export const getArtistLink = (song) => {
   return externalArtistLink + song.artists[0].id;
 };
 
-export const getArtistsLinks = (song) => {
+export const GetArtistsLinks = ({ song }) => {
   const len = song.artists.length;
   return (
     <>
       {song.artists.map((item, idx) => (
-        <>
+        <span key={item.id}>
           <a href={item.external_urls.spotify} target="_blank" rel="noreferrer">
             {truncate(item.name)}
           </a>
           {idx < len - 1 ? ", " : ""}
-        </>
+        </span>
       ))}
     </>
   );
-};
-
-export const displayArtists = (song) => {
-  const artist_links = getArtistsLinks(song);
-  return <></>;
 };
 
 export const getAlbumName = (song) => {

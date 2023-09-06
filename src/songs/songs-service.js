@@ -1,19 +1,12 @@
 import axios from "axios";
 import { Buffer } from "buffer";
 
-const auth_token = Buffer.from(
-  `${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`,
-  "utf-8"
-).toString("base64");
-
 let API_TOKEN = null;
 const SEARCH_TRACK_URL = "https://api.spotify.com/v1/tracks";
 const RECOMMENDATIONS_URL = "https://api.spotify.com/v1/recommendations";
 
 const api = axios.create({ withCredentials: true });
-// const SONGS_API_URL = 'http://localhost:4000/songs';
-const SONGS_API_URL =
-  "https://getrecs-node-server-app-6d8abdb70e6b.herokuapp.com/songs";
+const SONGS_API_URL = `${process.env.REACT_APP_SONGS_API_URL}/songs`;
 
 const getToken = async () => {
   try {
@@ -25,16 +18,16 @@ const getToken = async () => {
       { grant_type: "client_credentials" },
       {
         headers: {
-          Authorization: `Basic ${auth_token}`,
+          Authorization: `Basic ${Buffer.from(
+            `${process.env.REACT_APP_CLIENT_ID}:${process.env.REACT_APP_CLIENT_SECRET}`,
+            "utf-8"
+          ).toString("base64")}`,
           "Content-Type": "application/x-www-form-urlencoded",
         },
       }
     );
     //return access token
-    // console.log("GetToken: ", response.data.access_token);
     API_TOKEN = response.data.access_token;
-    //return response.data.access_token
-    //console.log(response.data.access_token);
   } catch (error) {
     //on fail, log the error in console
     console.log(error);
