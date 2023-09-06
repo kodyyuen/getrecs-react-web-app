@@ -31,7 +31,7 @@ const getToken = async () => {
       }
     );
     //return access token
-    console.log("GetToken: ", response.data.access_token);
+    // console.log("GetToken: ", response.data.access_token);
     API_TOKEN = response.data.access_token;
     //return response.data.access_token
     //console.log(response.data.access_token);

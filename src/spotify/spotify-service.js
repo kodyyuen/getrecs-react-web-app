@@ -13,7 +13,7 @@ import { Buffer } from "buffer";
 //         Authorization:
 //           "Basic " +
 //           Buffer.from(
-//             process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET,
+//             process.env.REACT_APP_CLIENT_ID + ":" + process.env.REACT_APP_CLIENT_SECRET,
 //             "utf-8"
 //           ).toString("base64"),
 //         "Content-Type": "application/x-www-form-urlencoded",
@@ -23,22 +23,6 @@ import { Buffer } from "buffer";
 
 //   req.session.apiKey = response.data.access_token;
 //   callback(req, res);
-// };
-
-// const redirectLogin = async () => {
-//   const scopes = ["user-top-read", "playlist-modify-private"];
-
-//   const str = new URLSearchParams({
-//     response_type: "token",
-//     client_id: process.env.REACT_APP_CLIENT_ID,
-//     scope: scopes.join(" "),
-//     redirect_uri: `${process.env.REACT_APP_SITE_BASE_URL}/spotify`,
-//     show_dialog: "true",
-//   });
-
-//   window.location.redirect(
-//     `https://accounts.spotify.com/authorize?${str.toString()}`
-//   );
 // };
 
 export const getApiKey = async (code) => {
@@ -54,7 +38,9 @@ export const getApiKey = async (code) => {
         Authorization:
           "Basic " +
           Buffer.from(
-            process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET,
+            process.env.REACT_APP_CLIENT_ID +
+              ":" +
+              process.env.REACT_APP_CLIENT_SECRET,
             "utf-8"
           ).toString("base64"),
         "Content-Type": "application/x-www-form-urlencoded",

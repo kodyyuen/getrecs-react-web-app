@@ -107,7 +107,8 @@ const spotifyReducer = createSlice({
       state.apiKey = action.payload;
     },
     [getApiKeyThunk.rejected]: (state, action) => {
-      console.log("getApiKeyThunk.rejected: " + action);
+      console.log("getApiKeyThunk.rejected");
+      console.log(action);
     },
   },
 });

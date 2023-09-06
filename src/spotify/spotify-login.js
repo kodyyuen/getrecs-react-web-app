@@ -1,6 +1,5 @@
 const SpotifyLogin = () => {
   const scopes = ["user-top-read", "playlist-modify-private"];
-
   const str = new URLSearchParams({
     response_type: "code",
     client_id: process.env.REACT_APP_CLIENT_ID,
