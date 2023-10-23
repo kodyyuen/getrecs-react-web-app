@@ -36,6 +36,16 @@ const Navigation = () => {
                   Search
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link
+                  to="/find-playlists"
+                  className={`nav-link ${
+                    parts[1] === "find-playlists" ? "active text-primary" : ""
+                  }`}
+                >
+                  Find Playlists
+                </Link>
+              </li>
               {!(currentUser || spotifyProfile) && (
                 <>
                   <li className="nav-item">

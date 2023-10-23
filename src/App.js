@@ -22,6 +22,7 @@ import SpotifyProfile from "./spotify/spotify-profile";
 import spotifyReducer from "./spotify/spotify-reducer";
 import ProtectedSpotifyRoute from "./spotify/protected-spotify-route";
 import SpotifyCallback from "./spotify/spotify-callback";
+import FindPlaylists from "./spotify/find-playlists-with-song";
 
 const store = configureStore({
   reducer: {
@@ -41,6 +42,7 @@ function App() {
             <Routes>
               <Route index element={<Recs />} />
               <Route path="/search" element={<SongsSearch />} />
+              <Route path="/find-playlists" element={<FindPlaylists />} />
               <Route path="/login" element={<Login />} />
               <Route path="/users" element={<Users />} />
               <Route path="/register" element={<Register />} />

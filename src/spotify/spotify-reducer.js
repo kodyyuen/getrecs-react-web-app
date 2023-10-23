@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   addRecsToPlaylistThunk,
+  findPlaylistsWithSongThunk,
   getApiKeyThunk,
   getSpotifyLongTopArtistsThunk,
   getSpotifyLongTopSongsThunk,
@@ -25,6 +26,7 @@ const initialState = {
   recsPlaylistURL: "",
   recsLoading: false,
   apiKey: "",
+  foundPlaylists: [],
 };
 
 const spotifyReducer = createSlice({
@@ -108,6 +110,13 @@ const spotifyReducer = createSlice({
     },
     [getApiKeyThunk.rejected]: (state, action) => {
       console.log("getApiKeyThunk.rejected");
+      console.log(action);
+    },
+    [findPlaylistsWithSongThunk.fulfilled]: (state, action) => {
+      state.foundPlaylists = action.payload;
+    },
+    [findPlaylistsWithSongThunk.rejected]: (state, action) => {
+      console.log("findPlaylistsWithSongThunk.rejected");
       console.log(action);
     },
   },
