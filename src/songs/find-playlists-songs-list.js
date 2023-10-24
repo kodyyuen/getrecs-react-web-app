@@ -1,6 +1,10 @@
 import FindPlaylistsSongsListRow from "./find-playlists-songs-list-row";
+import { useState } from "react";
 
-export const RenderFindPlaylistsSongsList = ({ songs, setFindSong }) => {
+export const RenderFindPlaylistsSongsList = ({ songs }) => {
+  const [selected, setSelected] = useState("");
+  const [findSong, setFindSong] = useState("");
+
   return (
     <>
       <div className="row m-0">
@@ -21,7 +25,7 @@ export const RenderFindPlaylistsSongsList = ({ songs, setFindSong }) => {
       <div>
         <ul className="list-group pe-0">
           {songs.map((song, idx) => (
-            <FindPlaylistsSongsListRow key={song.id} {...{song, idx, setFindSong}} /> 
+            <FindPlaylistsSongsListRow key={song.id} {...{song, idx, findSong, setFindSong, selected, setSelected}} /> 
           ))}
         </ul>
       </div>

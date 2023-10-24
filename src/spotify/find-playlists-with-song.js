@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RenderFindPlaylistsSongsList } from "../songs/find-playlists-songs-list";
 import { findSongBySearchTermThunk } from "../songs/songs-thunks";
-import { findPlaylistsWithSongThunk } from "./spotify-thunks";
 
 const FindPlaylists = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [findSong, setFindSong] = useState("");
 
   const { songs } = useSelector((state) => state.songs);
-  const { apiKey, foundPlaylists } = useSelector((state) => state.spotify);
+  const { foundPlaylists } = useSelector((state) => state.spotify);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -43,16 +41,23 @@ const FindPlaylists = () => {
           </button>
         </div>
       </form>
-      <button
+      {/* <button
         onClick={() =>
           dispatch(findPlaylistsWithSongThunk({ findSong, apiKey }))
         }
       >
         Find Playlists
-      </button>
-      {foundPlaylists.length > 0 && <p>balls</p>}
+      </button> */}
+      {foundPlaylists.length > 0 &&
+        foundPlaylists.map((p) => {
+          return (
+            <div>
+              <a href={p.external_urls.spotify}>{p.name}</a>
+            </div>
+          );
+        })}
       {songs && (
-        <RenderFindPlaylistsSongsList songs={songs} setFindSong={setFindSong} />
+        <RenderFindPlaylistsSongsList songs={songs} />
       )}
     </div>
   );

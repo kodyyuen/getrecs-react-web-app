@@ -8,8 +8,17 @@ import {
   getSongLink,
   getSongName,
 } from "./songs-helpers";
+import { findPlaylistsWithSongThunk } from "../spotify/spotify-thunks";
+import { useDispatch, useSelector } from "react-redux";
 
-const FindPlaylistsSongsListRow = ({ song, idx, setFindSong }) => {
+
+const FindPlaylistsSongsListRow = ({ song, idx, findSong, setFindSong, selected, setSelected }) => {
+  const { apiKey } = useSelector((state) => state.spotify);
+  const dispatch = useDispatch();
+  // const [selected, setSelected] = useState("");
+  const onOptionChange = (e) => {
+    setSelected(e.target.id)
+  }
   return (
     <li className="list-group-item p-1">
       <div className="row d-flex align-items-center m-0">
@@ -35,16 +44,35 @@ const FindPlaylistsSongsListRow = ({ song, idx, setFindSong }) => {
         </div>
         <div className="d-none d-md-block col-md-1">{getDuration(song)}</div>
         <div className="col col-xs-2 col-sm-1 col-md-2 d-flex justify-content-center">
-          <input
+          {selected !== `btnradio-${idx}` &&
+          <>
+            <input
             type="radio"
             class="btn-check"
             name="btnradio"
             id={`btnradio-${idx}`}
-            onClick={() => setFindSong(getSongID(song))}
-          />
+            checked={selected === `btnradio-${idx}`}
+            onClick={() => {
+              // setSelected(e.target.id);
+              // console.log(e.target.id)
+              setFindSong(getSongID(song));
+            }}
+            onChange={onOptionChange}
+            />
           <label class="btn btn-outline-primary" htmlFor={`btnradio-${idx}`}>
             Select
           </label>
+            </>
+          }
+          {
+            selected === `btnradio-${idx}` && 
+            <button className="btn btn-primary"
+            onClick={() =>
+              dispatch(findPlaylistsWithSongThunk({ findSong, apiKey }))
+            }>
+              Find Playlists
+            </button>
+          }
           {/* <button className="btn btn-primary"
             onClick={() => setFindSong(getSongID(song))}>Select</button> */}
         </div>

@@ -146,54 +146,24 @@ export const addRecsToPlaylist = async ({ user_id, body, uris, apiKey }) => {
 };
 
 export const findPlaylistsWithSong = async ({ findSong, apiKey }) => {
-  // let userPlaylists = await axios.get(
-  //   "https://api.spotify.com/v1/me/playlists",
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${apiKey}`,
-  //     },
-  //     params: { limit: 50, offset: 0 },
-  //   }
-  // );
-
-  // const { total } = userPlaylists.data;
-  // let { next, offset } = userPlaylists.data;
   let playlists = [];
   let userPlaylists;
-  // userPlaylists.data.items.array.forEach((i) => {
-  //   if (playlistContainsSong(i.tracks.href)) {
-  //     playlists.append(i);
-  //   }
-  // });
   let next = "https://api.spotify.com/v1/me/playlists?limit=50&offset=0";
-  console.log("here");
-  while (next) {
-    console.log("here2");
 
+  while (next) {
     userPlaylists = await axios.get(next, {
       headers: {
         Authorization: `Bearer ${apiKey}`,
       },
     });
     next = userPlaylists.data.next;
-    console.log(next);
 
     for (const i of userPlaylists.data.items) {
-      const cont = await playlistContainsSong(i.tracks.href, findSong, apiKey);
-      if (cont) {
-        console.log(i.href);
+      if (await playlistContainsSong(i.tracks.href, findSong, apiKey)) {
         playlists.push(i);
       }
     }
-    // userPlaylists.data.items.forEach((i) => {
-    //   let cont = await playlistContainsSong
-    //   if (playlistContainsSong(i.tracks.href, findSong, apiKey)) {
-    //     console.log(i.href);
-    //     playlists.push(i);
-    //   }
-    // });
   }
-  console.log(playlists[0]);
   return playlists;
 };
 
@@ -208,14 +178,14 @@ const playlistContainsSong = async (playlistURL, findSong, apiKey) => {
       },
     });
     next = playlist.data.next;
-    console.log("playlist next");
-    console.log(next);
-    let { items } = playlist.data;
-    items.forEach((i) => {
-      if (i.track.id === findSong) {
+
+    for (const i of playlist.data.items) {
+      console.log('i')
+      console.log(i)
+      if (i.track && i.track.id === findSong) {
         return true;
       }
-    });
+    }
   }
   return false;
 };
