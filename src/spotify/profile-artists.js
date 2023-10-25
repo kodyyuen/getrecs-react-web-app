@@ -1,4 +1,4 @@
-import ProfileArtistsSet from "./profile-artists-set";
+import CardSet from "./card-set";
 import SelectTracksTime from "./select-tracks-time";
 import { useState } from "react";
 import SongListHeader from "./song-list-header";
@@ -30,9 +30,9 @@ const ProfileArtists = () => {
       />
       {
         {
-          short: <ProfileArtistsSet artists={expandList(shortTopArtists)} />,
-          medium: <ProfileArtistsSet artists={expandList(mediumTopArtists)} />,
-          long: <ProfileArtistsSet artists={expandList(longTopArtists)} />,
+          short: <CardSet set={expandList(shortTopArtists)} type={'artist'} />,
+          medium: <CardSet set={expandList(mediumTopArtists)} type={'artist'} />,
+          long: <CardSet set={expandList(longTopArtists)} type={'artist'} />,
         }[artistsTime]
       }
     </div>

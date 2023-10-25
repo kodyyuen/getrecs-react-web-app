@@ -11,14 +11,20 @@ import {
 import { findPlaylistsWithSongThunk } from "../spotify/spotify-thunks";
 import { useDispatch, useSelector } from "react-redux";
 
-
-const FindPlaylistsSongsListRow = ({ song, idx, findSong, setFindSong, selected, setSelected }) => {
-  const { apiKey } = useSelector((state) => state.spotify);
+const FindPlaylistsSongsListRow = ({
+  song,
+  idx,
+  findSong,
+  setFindSong,
+  selected,
+  setSelected,
+}) => {
+  const { apiKey, playlistsLoading, currentFindSong, foundPlaylists } = useSelector((state) => state.spotify);
   const dispatch = useDispatch();
   // const [selected, setSelected] = useState("");
   const onOptionChange = (e) => {
-    setSelected(e.target.id)
-  }
+    setFindSong(e.target.id);
+  };
   return (
     <li className="list-group-item p-1">
       <div className="row d-flex align-items-center m-0">
@@ -44,35 +50,53 @@ const FindPlaylistsSongsListRow = ({ song, idx, findSong, setFindSong, selected,
         </div>
         <div className="d-none d-md-block col-md-1">{getDuration(song)}</div>
         <div className="col col-xs-2 col-sm-1 col-md-2 d-flex justify-content-center">
-          {selected !== `btnradio-${idx}` &&
-          <>
-            <input
-            type="radio"
-            class="btn-check"
-            name="btnradio"
-            id={`btnradio-${idx}`}
-            checked={selected === `btnradio-${idx}`}
-            onClick={() => {
-              // setSelected(e.target.id);
-              // console.log(e.target.id)
-              setFindSong(getSongID(song));
-            }}
-            onChange={onOptionChange}
-            />
-          <label class="btn btn-outline-primary" htmlFor={`btnradio-${idx}`}>
-            Select
-          </label>
+          {findSong !== getSongID(song) && (
+            <>
+              <input
+                type="radio"
+                class="btn-check"
+                name="btnradio"
+                // id={`btnradio-${idx}`}
+                // checked={selected === `btnradio-${idx}`}
+                id={getSongID(song)}
+                checked={findSong === getSongID(song)}
+                // onClick={() => {
+                //   // setSelected(e.target.id);
+                //   // console.log(e.target.id)
+                //   setFindSong(getSongID(song));
+                // }}
+                onChange={onOptionChange}
+              />
+              <label class="btn btn-outline-primary" htmlFor={getSongID(song)}>
+                Select
+              </label>
             </>
-          }
-          {
-            selected === `btnradio-${idx}` && 
-            <button className="btn btn-primary"
-            onClick={() =>
-              dispatch(findPlaylistsWithSongThunk({ findSong, apiKey }))
-            }>
-              Find Playlists
+          )}
+          {/* {playlistsLoading && findSong === getSongID(song) && (
+            <i className="btn btn-primary fa-brands fa-spotify fa-bounce" />
+          )} */}
+          {findSong === getSongID(song) && (
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                if (findSong !== currentFindSong) {
+                  dispatch(findPlaylistsWithSongThunk({ findSong, apiKey }));
+                }
+                // setFindSong("");
+              }}
+            >
+              {/* {playlistsLoading ? (
+                <i className="fa-brands fa-spotify fa-bounce" />
+              ) : (
+                <>
+                  <i className="fa-solid fa-circle-plus me-2"></i>Find Playlists
+                </>
+              )} */}
+              <Link to={`/playlists/${getSongID(song)}`}>
+                <i className="fa-solid fa-circle-plus me-2"></i>Find Playlists
+              </Link>
             </button>
-          }
+          )}
           {/* <button className="btn btn-primary"
             onClick={() => setFindSong(getSongID(song))}>Select</button> */}
         </div>

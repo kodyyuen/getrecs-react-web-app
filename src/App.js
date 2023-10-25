@@ -23,6 +23,7 @@ import spotifyReducer from "./spotify/spotify-reducer";
 import ProtectedSpotifyRoute from "./spotify/protected-spotify-route";
 import SpotifyCallback from "./spotify/spotify-callback";
 import FindPlaylists from "./spotify/find-playlists-with-song";
+import Playlists from "./spotify/playlists";
 
 const store = configureStore({
   reducer: {
@@ -38,34 +39,42 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           {/* <CurrentUser> */}
-            <Navigation />
-            <Routes>
-              <Route index element={<Recs />} />
-              <Route path="/search" element={<SongsSearch />} />
-              <Route path="/find-playlists" element={<FindPlaylists />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/users" element={<Users />} />
-              <Route path="/register" element={<Register />} />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/details/:songID" element={<Details />} />
-              <Route path="/profile/:uid" element={<PublicProfile />} />
-              <Route
-                path="/spotify"
-                element={
-                  <ProtectedSpotifyRoute>
-                    <SpotifyProfile />
-                  </ProtectedSpotifyRoute>
-                }
-              />
-              <Route path="/spotify/callback" element={<SpotifyCallback />} />
-            </Routes>
+          <Navigation />
+          <Routes>
+            <Route index element={<Recs />} />
+            <Route path="/search" element={<SongsSearch />} />
+            <Route
+              path="/find-playlists"
+              element={
+                <ProtectedSpotifyRoute>
+                  <FindPlaylists />
+                </ProtectedSpotifyRoute>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/details/:songID" element={<Details />} />
+            <Route path="/profile/:uid" element={<PublicProfile />} />
+            <Route path="/playlists/:songID" element={<Playlists />} />
+            <Route
+              path="/spotify"
+              element={
+                <ProtectedSpotifyRoute>
+                  <SpotifyProfile />
+                </ProtectedSpotifyRoute>
+              }
+            />
+            <Route path="/spotify/callback" element={<SpotifyCallback />} />
+          </Routes>
           {/* </CurrentUser> */}
         </BrowserRouter>
       </Provider>

@@ -146,7 +146,7 @@ export const addRecsToPlaylist = async ({ user_id, body, uris, apiKey }) => {
 };
 
 export const findPlaylistsWithSong = async ({ findSong, apiKey }) => {
-  let playlists = [];
+  let playlists = [findSong];
   let userPlaylists;
   let next = "https://api.spotify.com/v1/me/playlists?limit=50&offset=0";
 

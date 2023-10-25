@@ -48,14 +48,6 @@ const FindPlaylists = () => {
       >
         Find Playlists
       </button> */}
-      {foundPlaylists.length > 0 &&
-        foundPlaylists.map((p) => {
-          return (
-            <div>
-              <a href={p.external_urls.spotify}>{p.name}</a>
-            </div>
-          );
-        })}
       {songs && (
         <RenderFindPlaylistsSongsList songs={songs} />
       )}
