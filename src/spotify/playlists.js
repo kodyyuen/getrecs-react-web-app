@@ -14,7 +14,7 @@ import CardSet from "./card-set";
 
 const Playlists = () => {
   const { songID } = useParams();
-  const { foundPlaylists, playlistsLoading } = useSelector(
+  const { foundPlaylists, playlistsLoading, currentFindSong } = useSelector(
     (state) => state.spotify
   );
   const { details } = useSelector((state) => state.songs);
@@ -58,41 +58,17 @@ const Playlists = () => {
         </>
       )}
       {playlistsLoading && (
-        <i className="btn btn-primary fa-brands fa-spotify fa-bounce">
-          Loading...
-        </i>
+        <>
+          <i className="fa-brands fa-spotify fa-bounce"></i>
+          {` Finding Playlists...`}
+        </>
       )}
-      <CardSet set={foundPlaylists} type={"playlist"}/>
-      <ul className="list-group pe-0">
-        {foundPlaylists.length > 0 ? (
-          foundPlaylists.map((p) => {
-            return (
-              <li className="list-group-item">
-                <div className="row d-flex align-items-center">
-                  <div className="col-2">
-                    <img
-                      src={p.images[0].url}
-                      className="img-fluid"
-                      alt="playlist art"
-                    />
-                  </div>
-                  <div className="col-10">
-                    <a
-                      href={p.external_urls.spotify}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {p.name}
-                    </a>
-                  </div>
-                </div>
-              </li>
-            );
-          })
+      {songID === currentFindSong &&
+        (foundPlaylists.length > 0 ? (
+          <CardSet set={foundPlaylists} type={"playlist"} />
         ) : (
-          <div>No playlist found</div>
-        )}
-      </ul>
+          <p>No playlists found</p>
+        ))}
     </>
   );
 };
