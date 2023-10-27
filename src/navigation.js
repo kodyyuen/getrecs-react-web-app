@@ -26,16 +26,29 @@ const Navigation = () => {
           </Link>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-lg-0">
-              <li className="nav-item">
-                <Link
-                  to="/search"
-                  className={`nav-link ${
-                    parts[1] === "search" ? "active text-primary" : ""
-                  }`}
-                >
-                  Search
-                </Link>
-              </li>
+              {spotifyProfile ? (
+                <li className="nav-item">
+                  <Link
+                    to="/find-playlists"
+                    className={`nav-link ${
+                      parts[1] === "find-playlists" ? "active text-primary" : ""
+                    }`}
+                  >
+                    Find Playlists
+                  </Link>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <Link
+                    to="/search"
+                    className={`nav-link ${
+                      parts[1] === "search" ? "active text-primary" : ""
+                    }`}
+                  >
+                    Search
+                  </Link>
+                </li>
+              )}
               {!(currentUser || spotifyProfile) && (
                 <>
                   <li className="nav-item">
@@ -100,14 +113,14 @@ const Navigation = () => {
                     ? currentUser.name
                     : currentUser.username
                 }
-                {...{parts}}
+                {...{ parts }}
                 thunk={logoutThunk}
               />
             )}
             {spotifyProfile && (
               <UserDropdown
                 name={spotifyProfile.display_name}
-                {...{parts}}
+                {...{ parts }}
                 thunk={spotifyLogoutThunk}
               />
             )}
@@ -115,6 +128,7 @@ const Navigation = () => {
         </div>
       </nav>
 
+      {/* Mobile */}
       <nav className="navbar navbar-expand d-xs-block d-md-none navbar-light bg-light">
         <div className="container-fluid">
           <Link
@@ -135,17 +149,33 @@ const Navigation = () => {
             >
               <i className="fa-solid fa-bars"></i>
             </button>
-            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-              <li>
-                <Link
-                  to="/search"
-                  className={`dropdown-item ${
-                    parts[1] === "search" ? "active" : ""
-                  }`}
-                >
-                  Search
-                </Link>
-              </li>
+            <ul
+              className="dropdown-menu dropdown-menu-end"
+              aria-labelledby="dropdownMenuButton1"
+            >
+              {spotifyProfile ? (
+                <li>
+                  <Link
+                    to="/find-playlists"
+                    className={`dropdown-item ${
+                      parts[1] === "find-playlists" ? "active" : ""
+                    }`}
+                  >
+                    Find Playlists
+                  </Link>
+                </li>
+              ) : (
+                <li>
+                  <Link
+                    to="/search"
+                    className={`dropdown-item ${
+                      parts[1] === "search" ? "active" : ""
+                    }`}
+                  >
+                    Search
+                  </Link>
+                </li>
+              )}
               {!(currentUser || spotifyProfile) && (
                 <>
                   <li>

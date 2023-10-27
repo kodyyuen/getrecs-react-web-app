@@ -11,6 +11,7 @@ import {
   getSpotifyMediumTopArtists,
   getSpotifyLongTopArtists,
   getApiKey,
+  findPlaylistsWithSong,
 } from "./spotify-service";
 
 export const getSpotifyProfileThunk = createAsyncThunk(
@@ -67,3 +68,8 @@ export const getApiKeyThunk = createAsyncThunk(
   "spotifyGetApiKey",
   async (code) => await getApiKey(code)
 );
+
+export const findPlaylistsWithSongThunk = createAsyncThunk(
+  "spotifyFindPlaylistsWithSong",
+  async (params) => await findPlaylistsWithSong(params)
+)

@@ -144,3 +144,46 @@ export const addRecsToPlaylist = async ({ user_id, body, uris, apiKey }) => {
     return spotify;
   }
 };
+
+export const findPlaylistsWithSong = async ({ findSong, apiKey }) => {
+  let playlists = [findSong];
+  let userPlaylists;
+  let next = "https://api.spotify.com/v1/me/playlists?limit=50&offset=0";
+
+  while (next) {
+    userPlaylists = await axios.get(next, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+      },
+    });
+    next = userPlaylists.data.next;
+
+    for (const i of userPlaylists.data.items) {
+      if (await playlistContainsSong(i.tracks.href, findSong, apiKey)) {
+        playlists.push(i);
+      }
+    }
+  }
+  return playlists;
+};
+
+const playlistContainsSong = async (playlistURL, findSong, apiKey) => {
+  let playlist;
+  let next = `${playlistURL}?limit=50&offset=0`;
+
+  while (next) {
+    playlist = await axios.get(next, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+      },
+    });
+    next = playlist.data.next;
+
+    for (const i of playlist.data.items) {
+      if (i.track && i.track.id === findSong) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
