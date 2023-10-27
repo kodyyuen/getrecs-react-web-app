@@ -180,8 +180,6 @@ const playlistContainsSong = async (playlistURL, findSong, apiKey) => {
     next = playlist.data.next;
 
     for (const i of playlist.data.items) {
-      console.log('i')
-      console.log(i)
       if (i.track && i.track.id === findSong) {
         return true;
       }

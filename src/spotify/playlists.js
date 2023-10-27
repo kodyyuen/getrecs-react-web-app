@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { findSongBySongIDThunk } from "../songs/songs-thunks";
@@ -22,11 +22,12 @@ const Playlists = () => {
 
   useEffect(() => {
     dispatch(findSongBySongIDThunk(songID));
+    // eslint-disable-next-line
   }, []);
 
   return (
     <>
-      <h1>Details</h1>
+      <h1>Playlists</h1>
       {details && (
         <>
           <div className="row">
@@ -58,16 +59,24 @@ const Playlists = () => {
         </>
       )}
       {playlistsLoading && (
-        <>
-          <i className="fa-brands fa-spotify fa-bounce"></i>
-          {` Finding Playlists...`}
-        </>
+        <div className="container mt-5 d-flex justify-content-center">
+          <h1>
+            <i className="fa-brands fa-spotify fa-bounce me-2"></i>
+            Finding Playlists...
+          </h1>
+        </div>
       )}
       {songID === currentFindSong &&
         (foundPlaylists.length > 0 ? (
           <CardSet set={foundPlaylists} type={"playlist"} />
         ) : (
-          <p>No playlists found</p>
+          <div className="container mt-5 d-flex justify-content-center">
+            <h1>
+              <i class="fa-solid fa-x me-2" style={{ color: "#ff0000" }}></i>
+              No playlists found.
+              {/* <Link to={"/find-playlists"}>Find more playlists</Link> */}
+            </h1>
+          </div>
         ))}
     </>
   );

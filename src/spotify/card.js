@@ -7,14 +7,14 @@ const Card = ({ item, type }) => {
     <>
       <div className="col my-2 p-1">
         <div className="card bg-dark text-light text-center">
-            <a
-              className="p-0"
-              href={item.external_urls.spotify}
-              target="_blank"
-              rel="noreferrer"
-              style={{ textDecoration: "none", color: "#FFF" }}
-            >
-          <div className="row align-items-center m-0">
+          <a
+            className="p-0"
+            href={item.external_urls.spotify}
+            target="_blank"
+            rel="noreferrer"
+            style={{ textDecoration: "none", color: "#FFF" }}
+          >
+            <div className="row align-items-center m-0">
               <div
                 className={`col-4 col-md-12  ${
                   type === "playlist" ? "p-3" : "p-2"
@@ -34,8 +34,8 @@ const Card = ({ item, type }) => {
                   <h5 className="card-title">{item.name}</h5>
                 </div>
               </div>
-          </div>
-            </a>
+            </div>
+          </a>
         </div>
       </div>
     </>

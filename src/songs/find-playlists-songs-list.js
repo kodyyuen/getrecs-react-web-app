@@ -2,7 +2,6 @@ import FindPlaylistsSongsListRow from "./find-playlists-songs-list-row";
 import { useState } from "react";
 
 export const RenderFindPlaylistsSongsList = ({ songs }) => {
-  const [selected, setSelected] = useState("");
   const [findSong, setFindSong] = useState("");
 
   return (
@@ -20,12 +19,14 @@ export const RenderFindPlaylistsSongsList = ({ songs }) => {
         <div className="d-none d-md-block col-sm-1 p-0">
           <h5 className="font-weight-bold mb-1">Time</h5>
         </div>
-        {/* <div className="col-1"></div> */}
       </div>
       <div>
         <ul className="list-group pe-0">
           {songs.map((song, idx) => (
-            <FindPlaylistsSongsListRow key={song.id} {...{song, idx, findSong, setFindSong, selected, setSelected}} /> 
+            <FindPlaylistsSongsListRow
+              key={song.id}
+              {...{ song, idx, findSong, setFindSong }}
+            />
           ))}
         </ul>
       </div>

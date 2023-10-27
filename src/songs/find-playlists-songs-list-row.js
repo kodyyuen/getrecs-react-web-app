@@ -15,13 +15,10 @@ const FindPlaylistsSongsListRow = ({
   song,
   idx,
   findSong,
-  setFindSong,
-  selected,
-  setSelected,
+  setFindSong
 }) => {
-  const { apiKey, playlistsLoading, currentFindSong, foundPlaylists } = useSelector((state) => state.spotify);
+  const { apiKey, currentFindSong } = useSelector((state) => state.spotify);
   const dispatch = useDispatch();
-  // const [selected, setSelected] = useState("");
   const onOptionChange = (e) => {
     setFindSong(e.target.id);
   };
@@ -56,15 +53,8 @@ const FindPlaylistsSongsListRow = ({
                 type="radio"
                 class="btn-check"
                 name="btnradio"
-                // id={`btnradio-${idx}`}
-                // checked={selected === `btnradio-${idx}`}
                 id={getSongID(song)}
                 checked={findSong === getSongID(song)}
-                // onClick={() => {
-                //   // setSelected(e.target.id);
-                //   // console.log(e.target.id)
-                //   setFindSong(getSongID(song));
-                // }}
                 onChange={onOptionChange}
               />
               <label class="btn btn-outline-primary" htmlFor={getSongID(song)}>
@@ -72,33 +62,20 @@ const FindPlaylistsSongsListRow = ({
               </label>
             </>
           )}
-          {/* {playlistsLoading && findSong === getSongID(song) && (
-            <i className="btn btn-primary fa-brands fa-spotify fa-bounce" />
-          )} */}
           {findSong === getSongID(song) && (
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                if (findSong !== currentFindSong) {
-                  dispatch(findPlaylistsWithSongThunk({ findSong, apiKey }));
-                }
-                // setFindSong("");
-              }}
-            >
-              {/* {playlistsLoading ? (
-                <i className="fa-brands fa-spotify fa-bounce" />
-              ) : (
-                <>
-                  <i className="fa-solid fa-circle-plus me-2"></i>Find Playlists
-                </>
-              )} */}
-              <Link to={`/playlists/${getSongID(song)}`}>
-                <i className="fa-solid fa-circle-plus me-2"></i>Find Playlists
-              </Link>
-            </button>
+            <Link to={`/playlists/${getSongID(song)}`}>
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  if (findSong !== currentFindSong) {
+                    dispatch(findPlaylistsWithSongThunk({ findSong, apiKey }));
+                  }
+                }}
+              >
+                <i class="fa-solid fa-magnifying-glass me-2"></i>Find Playlists
+              </button>
+            </Link>
           )}
-          {/* <button className="btn btn-primary"
-            onClick={() => setFindSong(getSongID(song))}>Select</button> */}
         </div>
       </div>
     </li>
